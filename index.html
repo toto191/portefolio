@@ -5,9 +5,17 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="stylesheet" href="style.css">
 <title>Portfolio</title>
+<style>
+  /* Smooth scroll global */
+  html { scroll-behavior: smooth; }
+
+  /* Offset pour compenser le header sticky */
+  [id] { scroll-margin-top: 80px; }
+</style>
 </head>
 <body>
 
+<!-- Nav Overlay mobile -->
 <div class="nav-overlay" id="navOverlay" aria-hidden="true">
   <div class="nav-overlay__grid"></div>
   <span class="nav-overlay__tag">NAV_SYS :: ONLINE</span>
@@ -18,6 +26,7 @@
     <li class="nav-overlay__item"><a class="nav-overlay__link" data-index="03" href="#projets">Projets</a></li>
     <li class="nav-overlay__item"><a class="nav-overlay__link" data-index="04" href="#veille">Veille</a></li>
     <li class="nav-overlay__item"><a class="nav-overlay__link" data-index="05" href="#contact">Contact</a></li>
+    <li class="nav-overlay__item"><a class="nav-overlay__link" data-index="06" href="img/CVTB2026E.pdf" class="cta">Voir mon CV</a></li>
   </ul>
   <div class="nav-overlay__footer"><em>■</em> SYSTÈME ACTIF</div>
   <div class="nav-overlay__bottom-line"></div>
@@ -44,9 +53,9 @@
 
     <nav id="mainNav" role="navigation" aria-label="Navigation principale" data-open="false">
       <ul>
-        <li><a href="#about">À propos</a></li>
-        <li><a href="#projects">Projets</a></li>
-        <li><a href="#contact">Contact</a></li>
+        <li><a href="#apropos">À propos</a></li>
+        <li><a href="#parcours">Parcours</a></li>
+        <li><a href="#projets">Projets</a></li>
         <li><a href="veilleTech.html">Veille technologique</a></li>
         <li><a href="img/CVTB2026E.pdf" class="cta">Voir mon CV</a></li>
       </ul>
@@ -67,7 +76,7 @@
 <div class="Suite">
 
   <!-- À propos -->
-  <section>
+  <section id="apropos">
     <div class="Apropo">
 
       <div class="about-text-col">
@@ -142,10 +151,15 @@
   </section>
 
   <!-- Parcours -->
-  <section>
+  <section id="parcours">
     <div class="Parcours">
 
       <div class="etudes" id="BTS">
+        <span class="corner-tl"></span>
+        <span class="corner-tr"></span>
+        <span class="corner-bl"></span>
+        <span class="corner-br"></span>
+        <span class="card-tag">SYS::FORMATION</span>
         <p class="titreE">BTS SIO</p>
         <div class="description">
           <h2>2024 - 2026</h2>
@@ -155,6 +169,11 @@
       </div>
 
       <div class="etudes" id="BUT">
+        <span class="corner-tl"></span>
+        <span class="corner-tr"></span>
+        <span class="corner-bl"></span>
+        <span class="corner-br"></span>
+        <span class="card-tag">SYS::FORMATION</span>
         <p class="titreE">BUT Informatique</p>
         <div class="description">
           <h2>2023 - 2024</h2>
@@ -164,6 +183,11 @@
       </div>
 
       <div class="etudes" id="BAC">
+        <span class="corner-tl"></span>
+        <span class="corner-tr"></span>
+        <span class="corner-bl"></span>
+        <span class="corner-br"></span>
+        <span class="card-tag">SYS::FORMATION</span>
         <p class="titreE">BAC STI2D</p>
         <div class="description">
           <h2>2020 - 2023</h2>
@@ -178,21 +202,51 @@
 </div>
 
 <!-- Projets -->
-<section>
+<section id="projets">
   <div class="Projets">
     <ul>
-      <li>Projets 1</li>
-      <li>Projets 2</li>
-      <li>Projets 3</li>
-      <li>Projets 4</li>
-      <li>Projets 5</li>
-      <li>Projets 6</li>
+      <li>
+        <span class="pcorner pcorner-tl"></span>
+        <span class="pcorner pcorner-br"></span>
+        <span class="proj-index">01</span>
+        <span class="proj-label">Projet 1</span>
+      </li>
+      <li>
+        <span class="pcorner pcorner-tl"></span>
+        <span class="pcorner pcorner-br"></span>
+        <span class="proj-index">02</span>
+        <span class="proj-label">Projet 2</span>
+      </li>
+      <li>
+        <span class="pcorner pcorner-tl"></span>
+        <span class="pcorner pcorner-br"></span>
+        <span class="proj-index">03</span>
+        <span class="proj-label">Projet 3</span>
+      </li>
+      <li>
+        <span class="pcorner pcorner-tl"></span>
+        <span class="pcorner pcorner-br"></span>
+        <span class="proj-index">04</span>
+        <span class="proj-label">Projet 4</span>
+      </li>
+      <li>
+        <span class="pcorner pcorner-tl"></span>
+        <span class="pcorner pcorner-br"></span>
+        <span class="proj-index">05</span>
+        <span class="proj-label">Projet 5</span>
+      </li>
+      <li>
+        <span class="pcorner pcorner-tl"></span>
+        <span class="pcorner pcorner-br"></span>
+        <span class="proj-index">06</span>
+        <span class="proj-label">Projet 6</span>
+      </li>
     </ul>
   </div>
 </section>
 
 <!-- Expérience -->
-<section>
+<section id="contact">
   <div class="Experience"></div>
 </section>
 
