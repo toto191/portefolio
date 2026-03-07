@@ -414,6 +414,11 @@ nav .cta:hover  { color: #0b1220; }
   transition: width 0.5s ease;
 }
 
+/* ── Boutons navigation carte (mobile uniquement, cachés par défaut) ── */
+.card-nav-buttons {
+  display: none;
+}
+
 /* ══════════════════════════════════════
    PARCOURS
 ══════════════════════════════════════ */
@@ -1341,7 +1346,7 @@ nav .cta:hover  { color: #0b1220; }
 
 
 /* ══════════════════════════════════════
-   RESPONSIVE PORTFOLIO
+   RESPONSIVE PORTFOLIO — TABLETTE
 ══════════════════════════════════════ */
 @media (max-width: 1024px) {
   .container { flex-wrap: wrap; justify-content: center; text-align: center; }
@@ -1359,7 +1364,12 @@ nav .cta:hover  { color: #0b1220; }
   #Portfolio { width: 80%; max-width: 600px; height: auto; padding: 2rem; }
 }
 
+/* ══════════════════════════════════════
+   RESPONSIVE PORTFOLIO — MOBILE (≤768px)
+══════════════════════════════════════ */
 @media (max-width: 768px) {
+
+  /* ── Header ── */
   .menu-toggle { display: block; cursor: pointer; }
   nav ul {
     display: none;
@@ -1371,19 +1381,166 @@ nav .cta:hover  { color: #0b1220; }
   nav[data-open="true"] ul { display: flex; }
   nav li { text-align: center; padding: 8px 0; }
   .cta { margin: 10px auto; }
-  .me { flex-direction: column; align-items: center; }
-  #imgPresentation { width: 90%; max-width: 350px; }
+
+  /* ── Hero ── */
+  .Menu {
+    padding-top: 20%;
+    padding-bottom: 28%;
+  }
   #Pfolio { font-size: clamp(2rem, 8vw, 5rem); }
-  #Portfolio { width: 80%; height: auto; font-size: clamp(1.5rem, 6vw, 3rem); }
-  .Parcours { flex-direction: column; align-items: center; gap: 40px; margin: 40px 0; padding: 3rem 1rem; }
-  .etudes { width: 100% !important; max-width: 350px; height: 220px !important; }
+  #Portfolio {
+    width: 85%;
+    height: auto;
+    min-height: 80px;
+    padding: 1.2rem;
+    font-size: clamp(1.5rem, 6vw, 3rem);
+  }
+
+  /* ── À propos ── */
+  .Apropo {
+    padding: 40px 4% 30px;
+  }
+  .about-name { font-size: clamp(1.4rem, 5vw, 2rem); }
+  .me {
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+  }
+  #imgPresentation {
+    width: 90%;
+    max-width: 320px;
+    box-shadow: -1rem 1rem 0 #000;
+  }
+
+  /* ── Carte texte défilant : scroll → boutons sur mobile ── */
+  .card {
+    width: 92vw;
+    height: auto;
+    min-height: 260px;
+    padding: 24px 20px 20px;
+    cursor: default;
+  }
+  .text-viewport {
+    height: auto;
+    min-height: 130px;
+    overflow: visible;
+  }
+  .text-item {
+    position: relative;
+    inset: unset;
+    display: none;
+    opacity: 1;
+    transform: none;
+    transition: none;
+    pointer-events: auto;
+  }
+  .text-item.active {
+    display: flex;
+    opacity: 1;
+    transform: none;
+  }
+  .text-item p { font-size: clamp(0.82rem, 3.5vw, 0.95rem); line-height: 1.75; }
+
+  /* Boutons nav carte — visibles uniquement mobile */
+  .card-nav-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    margin-top: 16px;
+  }
+  .card-nav-btn {
+    background: none;
+    border: 1px solid var(--orange);
+    color: var(--orange);
+    border-radius: 6px;
+    width: 36px;
+    height: 36px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s, color 0.2s;
+  }
+  .card-nav-btn:hover {
+    background: var(--orange);
+    color: #fff;
+  }
+  .card-nav-counter {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.72rem;
+    color: rgba(231, 84, 39, 0.55);
+    letter-spacing: 2px;
+  }
+
+  /* ── Parcours ── */
+  .Parcours {
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+    margin: 40px 0;
+    padding: 3rem 1rem;
+  }
+  .etudes {
+    width: 100% !important;
+    max-width: 340px;
+    height: 200px !important;
+    margin-top: 0 !important;
+  }
   .titreE { font-size: 26px; }
+
+  /* Reveal hover → tap sur mobile (via .active ajouté par JS) */
+  .etudes.tapped .titreE { transform: translateY(-60px); }
+  .etudes.tapped .description { opacity: 1; transform: translateY(0); }
+
+  /* ── Projets ── */
+  .Projets {
+    padding: 10% 5%;
+  }
+  .Projets ul {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+  .Projets li {
+    height: 140px;
+    font-size: 0.9rem;
+    border-radius: 10px;
+  }
+
+  /* ── Footer ── */
   footer { text-align: center; padding: 1rem; }
 }
 
+/* ══════════════════════════════════════
+   RESPONSIVE PORTFOLIO — PETIT MOBILE (≤480px)
+══════════════════════════════════════ */
 @media (max-width: 480px) {
   .title { font-size: 1.1rem; }
   #site-sub { font-size: 0.9rem; }
   .cta { font-size: 0.9rem; padding: 6px 10px; }
-  #imgPresentation { width: 100%; border-radius: 8px; }
+
+  #imgPresentation {
+    width: 100%;
+    max-width: 280px;
+    box-shadow: -0.6rem 0.6rem 0 #000;
+  }
+
+  .card {
+    width: 95vw;
+    padding: 18px 14px 16px;
+  }
+  .text-item p { font-size: 0.82rem; }
+
+  .Projets ul {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .Projets li {
+    height: 120px;
+    font-size: 0.85rem;
+  }
+
+  .etudes { max-width: 300px !important; height: 180px !important; }
+  .titreE { font-size: 22px; }
 }
