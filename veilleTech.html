@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Flutter — Veille Technologique</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════ SCAN LINE OVERLAY -->
+  <div class="fv-scanlines" aria-hidden="true"></div>
+  <div class="fv-noise" aria-hidden="true"></div>
+
+  <!-- ═══════════════════════════════════════════════ HEADER -->
+  <header class="fv-header">
+    <div class="fv-header__eyebrow">
+      <span class="fv-header__tag">// VEILLE TECHNO</span>
+      <span class="fv-header__date" id="fv-live-date"></span>
+    </div>
+    <h1 class="fv-header__title">
+      <span class="fv-header__flutter">Flutter</span>
+      <span class="fv-header__amp">&</span>
+      <span class="fv-header__dart">Dart</span>
+    </h1>
+    <p class="fv-header__subtitle">Framework multiplateforme nouvelle génération</p>
+    <div class="fv-header__line" aria-hidden="true">
+      <span></span><span></span><span></span>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════════════════════ MAIN -->
+  <main class="fv-main">
+
+    <!-- ─── SECTION 1 : PRÉSENTATION FLUTTER ─── -->
+    <section class="fv-section fv-section--flutter" id="fv-flutter-presentation">
+
+      <div class="fv-section__label">
+        <span class="fv-section__index">01</span>
+        <span class="fv-section__name">PRÉSENTATION</span>
+      </div>
+
+      <h2 class="fv-section__title">Présentation de Flutter &amp; Dart</h2>
+      <p class="fv-section__intro">
+        Flutter est un framework basé sur le langage Dart. Il est conçu pour le développement
+        multiplateforme avec une approche <em>"client-side"</em> optimisée.
+      </p>
+
+      <!-- BLOC INTRO DART -->
+      <div class="fv-card-grid">
+        <article class="fv-card fv-card--highlight">
+          <div class="fv-card__icon">⟨/⟩</div>
+          <h3 class="fv-card__title">Langage Dart</h3>
+          <p class="fv-card__body">Un mélange de Java, JavaScript, Kotlin et C++. Il permet de créer des apps mobiles, web, des logiciels de bureau et des outils en ligne de commande.</p>
+        </article>
+        <article class="fv-card">
+          <div class="fv-card__icon">⚡</div>
+          <h3 class="fv-card__title">Rapidité &amp; Fluidité</h3>
+          <p class="fv-card__body">Temps de démarrage rapide et animations fluides garantis nativement par le moteur de rendu.</p>
+        </article>
+        <article class="fv-card">
+          <div class="fv-card__icon">◈</div>
+          <h3 class="fv-card__title">Compatibilité</h3>
+          <p class="fv-card__body">Fonctionne nativement sur Android et Apple iOS sans compromis de performance.</p>
+        </article>
+      </div>
+
+      <!-- ARCHITECTURE WIDGETS -->
+      <div class="fv-bloc fv-bloc--arch">
+        <h3 class="fv-bloc__title"><span class="fv-bloc__icon">🏗️</span> Architecture : Le Système de Widgets</h3>
+        <p class="fv-bloc__lead">Dans Flutter, <strong>"Tout est Widget"</strong> — un bouton, une couleur, une marge, ou l'application entière.</p>
+        <ul class="fv-list">
+          <li class="fv-list__item">
+            <span class="fv-list__bullet">▸</span>
+            <span><strong>Agencement :</strong> Flutter utilise les widgets pour contrôler toute l'interface.</span>
+          </li>
+          <li class="fv-list__item">
+            <span class="fv-list__bullet">▸</span>
+            <span><strong>Hiérarchie Parent-Enfant :</strong> Ce qui est défini dans un widget parent est répliqué dans ses widgets enfants.</span>
+          </li>
+          <li class="fv-list__item">
+            <span class="fv-list__bullet">▸</span>
+            <span><strong>Personnalisation sans limite :</strong> Vous n'êtes pas limité par les designs imposés par Apple ou Google.</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- ÉCOSYSTÈME PACKAGES -->
+      <div class="fv-bloc fv-bloc--packages">
+        <h3 class="fv-bloc__title"><span class="fv-bloc__icon">🛠️</span> Écosystème et Packages</h3>
+        <div class="fv-counter-display">
+          <span class="fv-counter__num" id="fv-package-count">0</span>
+          <span class="fv-counter__label">packages disponibles</span>
+        </div>
+        <div class="fv-packages-grid">
+          <div class="fv-package">
+            <code class="fv-package__name">scanner_mobile</code>
+            <p class="fv-package__desc">Intégration de lecture de codes-barres.</p>
+          </div>
+          <div class="fv-package">
+            <code class="fv-package__name">flutter_soloud</code>
+            <p class="fv-package__desc">Plugin audio haute performance (faible latence), idéal pour les jeux. Mis à jour <strong>72 fois</strong> en 24 mois.</p>
+          </div>
+          <div class="fv-package">
+            <code class="fv-package__name">flutter_stripe</code>
+            <p class="fv-package__desc">Interfaces prêtes à l'emploi pour recueillir les informations de paiement.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- POINTS FORTS -->
+      <div class="fv-bloc fv-bloc--strengths">
+        <h3 class="fv-bloc__title"><span class="fv-bloc__icon">⚡</span> Points Forts du Développement</h3>
+        <ol class="fv-strengths-list">
+          <li class="fv-strength">
+            <span class="fv-strength__num">01</span>
+            <div class="fv-strength__content">
+              <h4 class="fv-strength__name">Hot Reload</h4>
+              <p>Les modifications de code apparaissent instantanément sur le téléphone sans perdre l'état de l'app. Le cycle de développement est jusqu'à <strong>3× plus rapide</strong> que le natif.</p>
+            </div>
+          </li>
+          <li class="fv-strength">
+            <span class="fv-strength__num">02</span>
+            <div class="fv-strength__content">
+              <h4 class="fv-strength__name">Performance Quasi-Native</h4>
+              <p>Flutter utilise son propre moteur de rendu (Impeller / Skia) au lieu de WebViews lentes. Il dessine chaque pixel lui-même à <strong>60 ou 120 FPS</strong>.</p>
+            </div>
+          </li>
+          <li class="fv-strength">
+            <span class="fv-strength__num">03</span>
+            <div class="fv-strength__content">
+              <h4 class="fv-strength__name">Web &amp; WebAssembly</h4>
+              <p>Possibilité de compiler en JS pour le web. L'utilisation de WebAssembly a résolu les problèmes de lenteur sur navigateur.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+
+      <!-- WRITE ONCE RUN ANYWHERE -->
+      <div class="fv-bloc fv-bloc--platforms">
+        <h3 class="fv-bloc__title"><span class="fv-bloc__icon">🌍</span> "Write Once, Run Anywhere"</h3>
+        <p class="fv-bloc__lead">Une seule base de code pour déployer partout :</p>
+        <div class="fv-platforms-grid">
+          <div class="fv-platform">
+            <span class="fv-platform__icon">📱</span>
+            <span class="fv-platform__name">Mobile</span>
+            <span class="fv-platform__detail">iOS &amp; Android</span>
+          </div>
+          <div class="fv-platform">
+            <span class="fv-platform__icon">🌐</span>
+            <span class="fv-platform__name">Web</span>
+            <span class="fv-platform__detail">SPA</span>
+          </div>
+          <div class="fv-platform">
+            <span class="fv-platform__icon">🖥️</span>
+            <span class="fv-platform__name">Desktop</span>
+            <span class="fv-platform__detail">Windows · macOS · Linux</span>
+          </div>
+          <div class="fv-platform">
+            <span class="fv-platform__icon">🚗</span>
+            <span class="fv-platform__name">Embarqué</span>
+            <span class="fv-platform__detail">Voitures · IoT</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- QUI UTILISE FLUTTER -->
+      <div class="fv-bloc fv-bloc--users">
+        <h3 class="fv-bloc__title"><span class="fv-bloc__icon">🏢</span> Qui utilise Flutter ?</h3>
+        <div class="fv-companies-ticker" id="fv-ticker">
+          <div class="fv-companies-ticker__track">
+            <span>Google</span><span>Alibaba</span><span>Philips</span>
+            <span>Toyota</span><span>eBay</span><span>MGM Resorts</span>
+            <span>Google</span><span>Alibaba</span><span>Philips</span>
+            <span>Toyota</span><span>eBay</span><span>MGM Resorts</span>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ─── DIVIDER ─── -->
+    <div class="fv-divider" aria-hidden="true">
+      <span class="fv-divider__line"></span>
+      <span class="fv-divider__symbol">◆</span>
+      <span class="fv-divider__line"></span>
+    </div>
+
+    <!-- ─── SECTION 2 : STRATÉGIE DE VEILLE ─── -->
+    <section class="fv-section fv-section--veille" id="fv-veille-strategie">
+
+      <div class="fv-section__label">
+        <span class="fv-section__index">02</span>
+        <span class="fv-section__name">VEILLE TECHNO</span>
+      </div>
+
+      <h2 class="fv-section__title">🛰️ Ma Stratégie de Veille Techno</h2>
+      <p class="fv-section__intro">
+        Pour rester à jour sur l'écosystème Flutter &amp; Dart, j'ai mis en place une routine
+        de veille multi-canaux combinant lecture technique, apprentissage vidéo et inspiration visuelle.
+      </p>
+
+      <!-- CANAUX DE VEILLE -->
+      <div class="fv-channels">
+
+        <!-- MEDIUM -->
+        <article class="fv-channel fv-channel--medium" data-channel="medium">
+          <div class="fv-channel__header">
+            <span class="fv-channel__icon">📩</span>
+            <div>
+              <h3 class="fv-channel__title">Articles &amp; Newsletters</h3>
+              <span class="fv-channel__platform">Medium Daily Digest</span>
+            </div>
+            <div class="fv-channel__freq">
+              <span class="fv-freq__dots" data-freq="3"></span>
+              <span class="fv-freq__label">1–4×/semaine</span>
+            </div>
+          </div>
+          <ul class="fv-channel__list">
+            <li>Explications approfondies sur le fonctionnement du framework.</li>
+            <li>Analyse des nouvelles fonctionnalités.</li>
+            <li>Rapports sur les gains de performance après les mises à jour.</li>
+          </ul>
+        </article>
+
+        <!-- YOUTUBE -->
+        <article class="fv-channel fv-channel--youtube" data-channel="youtube">
+          <div class="fv-channel__header">
+            <span class="fv-channel__icon">🎥</span>
+            <div>
+              <h3 class="fv-channel__title">Apprentissage Technique</h3>
+              <span class="fv-channel__platform">YouTube — Compte officiel Flutter</span>
+            </div>
+            <div class="fv-channel__freq">
+              <span class="fv-freq__dots" data-freq="1"></span>
+              <span class="fv-freq__label">1×/semaine</span>
+            </div>
+          </div>
+          <ul class="fv-channel__list">
+            <li>Tutoriels sur les fonctionnalités de Flutter et Dart.</li>
+            <li>Démonstrations techniques sur le fonctionnement interne des outils.</li>
+          </ul>
+        </article>
+
+        <!-- TIKTOK -->
+        <article class="fv-channel fv-channel--tiktok" data-channel="tiktok">
+          <div class="fv-channel__header">
+            <span class="fv-channel__icon">📱</span>
+            <div>
+              <h3 class="fv-channel__title">Inspiration &amp; Cas d'Usage</h3>
+              <span class="fv-channel__platform">TikTok — @flutterDavi</span>
+            </div>
+            <div class="fv-channel__freq">
+              <span class="fv-freq__dots" data-freq="5"></span>
+              <span class="fv-freq__label">Flux continu</span>
+            </div>
+          </div>
+          <ul class="fv-channel__list">
+            <li>Découvrir des exemples concrets d'applications.</li>
+            <li>Démonstrations d'interfaces et d'expériences utilisateur réalisables avec Flutter.</li>
+          </ul>
+        </article>
+
+      </div>
+
+      <!-- RADAR VISUEL -->
+      <div class="fv-radar-wrap">
+        <canvas class="fv-radar" id="fv-radar-canvas" width="300" height="300" aria-label="Radar de veille technologique"></canvas>
+        <div class="fv-radar-legend">
+          <span class="fv-radar-legend__item" data-axis="Profondeur">Profondeur</span>
+          <span class="fv-radar-legend__item" data-axis="Fréquence">Fréquence</span>
+          <span class="fv-radar-legend__item" data-axis="Visuel">Visuel</span>
+          <span class="fv-radar-legend__item" data-axis="Technique">Technique</span>
+          <span class="fv-radar-legend__item" data-axis="Inspiration">Inspiration</span>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- ═══════════════════════════════════════════════ FOOTER -->
+  <footer class="fv-footer">
+    <span class="fv-footer__text">// SYSTÈME FLUTTER VEILLE — ACTIF</span>
+    <span class="fv-footer__blink">█</span>
+  </footer>
+
+  <script src="flutter-veille.js"></script>
+  <script src="flutter-radar.js"></script>
+</body>
+</html>

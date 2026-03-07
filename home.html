@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" href="style.css">
+<title>Portfolio</title>
+</head>
+<body>
+
+<!-- Header -->
+<header class="site-header" role="banner">
+  <div class="container">
+    <div class="presentation">
+      <a href="#" class="brand" aria-label="Accueil - Portfolio">
+        <div class="logo" aria-hidden="true">PF</div>
+      </a>
+      <div class="title">
+        <div id="site-title">Tom BENOIT</div>
+        <div id="site-sub">Etudiant en Informatique</div>
+      </div>
+    </div>
+
+    <button class="menu-toggle" id="menuToggle" aria-controls="mainNav" aria-expanded="false" aria-label="Ouvrir le menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+
+    <nav id="mainNav" role="navigation" aria-label="Navigation principale" data-open="false">
+      <ul>
+        <li><a href="#about">À propos</a></li>
+        <li><a href="#projects">Projets</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="veilleTech.html">Veille technologique</a></li>
+        <li><a href="#" class="cta">Voir mon CV</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<!-- Hero / Portfolio -->
+<section>
+  <div class="Menu">
+    <div id="Pfolio">
+      <p id="Portfolio">PORTFOLIO</p>
+    </div>
+  </div>
+</section>
+
+<!-- Suite -->
+<div class="Suite">
+
+  <!-- À propos -->
+  <section>
+    <div class="Apropo">
+
+      <div class="about-text-col">
+        <div class="about-label">À propos</div>
+        <div class="about-name">Tom BENOIT</div>
+        <div class="about-role">Étudiant BTS SIO SLAM — 2ᵉ année</div>
+        <div class="about-divider"></div>
+      </div>
+
+      <div class="me">
+        <img id="imgPresentation" src="img/homme.png" alt="Photo de Tom" />
+
+        <!-- Carte texte défilant -->
+        <div class="card" id="stage">
+          <div class="card-inner">
+
+            <div class="card-header">
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="card-title">PROFIL_SYS &gt; LECTURE...</span>
+            </div>
+
+            <div class="text-viewport">
+
+              <div class="text-item active" data-index="0">
+                <span class="index-tag">// 01 — FORMATION</span>
+                <p>Je suis étudiant en deuxième année de BTS Services Informatiques aux Organisations (option SLAM – Solutions Logicielles et Applications Métiers).</p>
+              </div>
+
+              <div class="text-item" data-index="1">
+                <span class="index-tag">// 02 — PASSION</span>
+                <p>Passionné par le développement et les nouvelles technologies, j'aime concevoir, coder et améliorer des applications capables de répondre à des besoins concrets.</p>
+              </div>
+
+              <div class="text-item" data-index="2">
+                <span class="index-tag">// 03 — MÉTHODE</span>
+                <p>Curieux et rigoureux, je m'intéresse à toutes les étapes du cycle de vie d'un projet : de l'analyse du besoin à la mise en production, en passant par la conception, le développement et les tests.</p>
+              </div>
+
+              <div class="text-item" data-index="3">
+                <span class="index-tag">// 04 — OBJECTIF</span>
+                <p>Mon objectif est de devenir un développeur polyvalent, capable de créer des solutions performantes, ergonomiques et sécurisées. J'aime apprendre de nouvelles technologies, expérimenter différents langages et travailler en équipe sur des projets stimulants.</p>
+              </div>
+
+              <div class="text-item" data-index="4">
+                <span class="index-tag">// 05 — COMPÉTENCES</span>
+                <p>Grâce à ma formation en BTS SIO SLAM, je renforce chaque jour mes compétences en programmation (HTML, CSS, JavaScript, PHP, Python, SQL…), en gestion de bases de données et en méthodologie de projet.</p>
+              </div>
+
+              <div class="text-item" data-index="5">
+                <span class="index-tag">// 06 — RÉSUMÉ</span>
+                <p>En résumé, je suis motivé, impliqué et passionné par l'univers du développement logiciel, toujours prêt à relever de nouveaux défis et à continuer d'apprendre.</p>
+              </div>
+
+            </div>
+
+            <div class="card-footer">
+              <span>SRC : BIO.TXT</span>
+              <div class="progress-bar">
+                <div class="progress-fill" id="progressFill" style="width:16%"></div>
+              </div>
+              <span id="counter">01 / 06</span>
+            </div>
+
+          </div>
+        </div>
+        <!-- fin carte -->
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Parcours -->
+  <section>
+    <div class="Parcours">
+
+      <div class="etudes" id="BTS">
+        <p class="titreE">BTS SIO</p>
+        <div class="description">
+          <h2>2024 - 2026</h2>
+          <p>2 ans de formation basée sur l'apprentissage du développement informatique</p>
+          <p>Langages vus : C#, PHP, SQL, JS, HTML/CSS</p>
+        </div>
+      </div>
+
+      <div class="etudes" id="BUT">
+        <p class="titreE">BUT Informatique</p>
+        <div class="description">
+          <h2>2023 - 2024</h2>
+          <p>1 an de formation basée sur l'apprentissage du développement informatique.</p>
+          <p>Langages vus : C#, PHP, SQL, JS, HTML/CSS</p>
+        </div>
+      </div>
+
+      <div class="etudes" id="BAC">
+        <p class="titreE">BAC STI2D</p>
+        <div class="description">
+          <h2>2020 - 2023</h2>
+          <p>BAC STI2D option SIN</p>
+          <p>Langages vus : C#, PHP, SQL, JS, HTML/CSS</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</div>
+
+<!-- Projets -->
+<section>
+  <div class="Projets">
+    <ul>
+      <li>Projets 1</li>
+      <li>Projets 2</li>
+      <li>Projets 3</li>
+      <li>Projets 4</li>
+      <li>Projets 5</li>
+      <li>Projets 6</li>
+    </ul>
+  </div>
+</section>
+
+<!-- Expérience -->
+<section>
+  <div class="Experience"></div>
+</section>
+
+<script src="script.js"></script>
+</body>
+</html>
