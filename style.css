@@ -2,7 +2,7 @@
    style.css
    ============================================= */
 
-@import url('https://fonts.googleapis.com/css2?family=Special+Elite&family=Share+Tech+Mono&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Special+Elite&family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&display=swap');
 
 * {
   box-sizing: border-box;
@@ -41,15 +41,23 @@ a { text-decoration: none; }
   --fv-radius:    2px;
   --fv-glow:      0 0 18px rgba(231, 84, 39, 0.35);
   --fv-glow-sm:   0 0 8px  rgba(231, 84, 39, 0.25);
+
+  /* ── Variables rétro-futuriste portfolio ── */
+  --rf-bg:        #0e0906;
+  --rf-border:    rgba(116, 98, 94, 0.4);
+  --rf-orange:    #e75427;
+  --rf-cream:     #dacabe;
+  --rf-warm:      #74625e;
+  --rf-glow:      0 0 20px rgba(231, 84, 39, 0.3);
+  --rf-glow-lg:   0 0 50px rgba(231, 84, 39, 0.15);
 }
 
-/* ── Base PORTFOLIO (ne touche pas au body global de la veille) ── */
+/* ── Base PORTFOLIO ── */
 body {
   min-height: 100vh;
   background-color: white;
   font-family: Arial, Helvetica, sans-serif;
   color: #0b1220;
-  /* Grille subtile en fond */
   background-image:
     linear-gradient(rgba(116, 98, 94, 0.06) 1px, transparent 1px),
     linear-gradient(90deg, rgba(116, 98, 94, 0.06) 1px, transparent 1px);
@@ -57,14 +65,52 @@ body {
 }
 
 /* ══════════════════════════════════════
-   HEADER
+   HEADER — RÉTRO-FUTURISTE
 ══════════════════════════════════════ */
 header {
   position: sticky;
   top: 0;
   z-index: 1000;
-  background-color: rgba(218, 213, 210, 0.932);
-  box-shadow: 5px 2px 8px rgba(41, 40, 40, 0.2);
+  background: linear-gradient(180deg, #1a0d08 0%, #0e0906 100%);
+  border-bottom: 1px solid var(--rf-border);
+  box-shadow:
+    0 2px 0 rgba(231, 84, 39, 0.15),
+    0 4px 20px rgba(0, 0, 0, 0.6);
+  /* Scanlines subtiles sur le header */
+  background-image:
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0px,
+      transparent 3px,
+      rgba(0,0,0,0.08) 3px,
+      rgba(0,0,0,0.08) 4px
+    ),
+    linear-gradient(180deg, #1a0d08 0%, #0e0906 100%);
+}
+
+/* Ligne orange en haut du header */
+header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--rf-orange), transparent);
+  z-index: 1;
+}
+
+/* Grille de fond subtile dans le header */
+header::after {
+  content: '';
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image:
+    linear-gradient(rgba(231,84,39,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(231,84,39,0.03) 1px, transparent 1px);
+  background-size: 44px 44px;
 }
 
 .container {
@@ -75,6 +121,8 @@ header {
   margin: 0 auto;
   padding: 0.5rem 1rem;
   gap: 1rem;
+  position: relative;
+  z-index: 2;
 }
 
 nav ul {
@@ -85,95 +133,160 @@ nav ul {
 }
 nav li  { margin: 0; }
 nav a   {
-  color: inherit;
+  color: var(--rf-cream);
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
   font-weight: 500;
   position: relative;
   padding-bottom: 3px;
-  transition: color 0.25s ease;
+  transition: color 0.25s ease, text-shadow 0.25s ease;
 }
 
-/* Soulignement animé */
+/* Soulignement animé rétro */
 nav a::after {
   content: '';
   position: absolute;
   bottom: 0; left: 50%;
   width: 0;
-  height: 2px;
-  background: var(--orange);
+  height: 1px;
+  background: var(--rf-orange);
+  box-shadow: 0 0 6px var(--rf-orange);
   border-radius: 2px;
   transition: width 0.3s ease, left 0.3s ease;
 }
-nav a:hover { color: var(--orange); }
+nav a:hover {
+  color: var(--rf-orange);
+  text-shadow: 0 0 12px rgba(231, 84, 39, 0.6);
+}
 nav a:hover::after { width: 100%; left: 0; }
 
 /* Sauf le bouton CTA */
 nav .cta::after { display: none; }
-nav .cta:hover  { color: #0b1220; }
+nav .cta:hover  { color: #0e0906; }
 
-/* CTA */
+/* CTA — rétro-futuriste */
 @keyframes gradientFlow {
   0%   { background-position: 0% 50%; }
   50%  { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
 }
+
+@keyframes ctaGlow {
+  0%, 100% { box-shadow: 0 0 10px rgba(231,84,39,0.3), inset 0 0 10px rgba(231,84,39,0.05); }
+  50%       { box-shadow: 0 0 22px rgba(231,84,39,0.6), inset 0 0 15px rgba(231,84,39,0.1); }
+}
+
 .cta {
-  padding: 8px 14px;
-  border-radius: 10px;
-  background: radial-gradient(circle at center, var(--accent-start), var(--accent-mid), var(--accent-end));
-  background-size: 400% 400%;
+  padding: 7px 16px;
+  border-radius: 2px;
+  border: 1px solid var(--rf-orange);
+  background: linear-gradient(135deg, rgba(231,84,39,0.15), rgba(231,84,39,0.05));
   margin-right: 10px;
-  animation: gradientFlow 5s ease infinite;
-  color: #0b1220;
-  font-weight: 700;
+  animation: ctaGlow 3s ease-in-out infinite;
+  color: var(--rf-cream);
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-weight: 400;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.25s, color 0.25s;
+}
+
+/* Effet glitch/scan sur le CTA */
+.cta::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(231,84,39,0.12) 50%, transparent 100%);
+  transform: translateX(-100%);
+  animation: ctaScan 3s ease-in-out infinite 1.5s;
+}
+@keyframes ctaScan {
+  0%   { transform: translateX(-100%); }
+  60%  { transform: translateX(100%); }
+  100% { transform: translateX(100%); }
+}
+
+.cta:hover {
+  background: var(--rf-orange);
+  color: #0e0906;
 }
 
 /* Logo / titre */
 .logo {
   width: 50px; height: 50px;
-  background-color: #fff;
-  color: #74625e;
-  font-weight: bold;
-  font-size: 1.5rem;
-  border-radius: 50%;
-  border: 2px solid #000;
+  background-color: #1a0d08;
+  color: var(--rf-orange);
+  font-family: 'Orbitron', monospace;
+  font-weight: 900;
+  font-size: 1.2rem;
+  border-radius: 2px;
+  border: 1px solid var(--rf-border);
+  box-shadow: var(--fv-glow-sm), inset 0 0 15px rgba(231,84,39,0.05);
   display: flex;
   align-items: center;
   justify-content: center;
   margin-right: 10px;
+  position: relative;
 }
-.title    { color: #000; font-size: 1.25rem; }
-#site-sub { font-size: 0.95rem; color: #74625e; }
+/* Coins déco sur le logo */
+.logo::before, .logo::after {
+  content: '';
+  position: absolute;
+  width: 8px; height: 8px;
+  border-color: var(--rf-orange);
+  border-style: solid;
+}
+.logo::before { top: -1px; left: -1px; border-width: 2px 0 0 2px; }
+.logo::after  { bottom: -1px; right: -1px; border-width: 0 2px 2px 0; }
+
+.title {
+  color: var(--rf-cream);
+  font-family: 'Orbitron', monospace;
+  font-size: 1rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+#site-sub {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--rf-warm);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
 
 .menu-toggle {
   display: none;
-  background: none;
+  background: rgba(231,84,39,0.05);
   border: 1px solid rgba(116, 98, 94, 0.5);
   padding: 8px 10px;
-  border-radius: 4px;
+  border-radius: 2px;
   cursor: pointer;
-  color: #0b1220;
+  color: var(--rf-cream);
   font-size: 1.2rem;
   z-index: 2001;
   position: relative;
-  transition: border-color 0.2s, color 0.2s;
+  transition: border-color 0.2s, color 0.2s, box-shadow 0.2s;
 }
 .menu-toggle:hover {
   border-color: var(--orange);
   color: var(--orange);
+  box-shadow: var(--fv-glow-sm);
 }
 
 /* ══════════════════════════════════════
    NAV OVERLAY — PLEIN ÉCRAN RÉTRO-FUTURISTE
-   Affiché uniquement sur mobile (≤768px)
 ══════════════════════════════════════ */
 .nav-overlay {
-  /* caché par défaut, activé via JS avec .is-open */
   visibility: hidden;
   pointer-events: none;
   position: fixed;
   inset: 0;
   z-index: 2000;
-  /* Fond sombre chaud, même palette que la veille */
   background:
     radial-gradient(ellipse 70% 45% at 50% -5%, rgba(231,84,39,0.22), transparent 55%),
     linear-gradient(170deg, #0e0906 0%, #160d08 55%, #1e1209 100%);
@@ -182,13 +295,11 @@ nav .cta:hover  { color: #0b1220; }
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  /* Transition d'ouverture */
   opacity: 0;
   transform: translateY(-8px);
   transition: opacity 0.3s ease, transform 0.3s ease, visibility 0s linear 0.3s;
 }
 
-/* État ouvert */
 .nav-overlay.is-open {
   visibility: visible;
   pointer-events: auto;
@@ -197,7 +308,6 @@ nav .cta:hover  { color: #0b1220; }
   transition: opacity 0.3s ease, transform 0.3s ease, visibility 0s linear 0s;
 }
 
-/* ── Scanlines CRT ── */
 .nav-overlay::before {
   content: '';
   pointer-events: none;
@@ -213,7 +323,6 @@ nav .cta:hover  { color: #0b1220; }
   );
 }
 
-/* ── Ligne orange en haut ── */
 .nav-overlay::after {
   content: '';
   position: absolute;
@@ -225,7 +334,6 @@ nav .cta:hover  { color: #0b1220; }
   z-index: 1;
 }
 
-/* ── Grille de fond subtile ── */
 .nav-overlay__grid {
   pointer-events: none;
   position: absolute;
@@ -237,7 +345,6 @@ nav .cta:hover  { color: #0b1220; }
   background-size: 44px 44px;
 }
 
-/* ── Tag système coin haut-gauche ── */
 .nav-overlay__tag {
   position: absolute;
   top: 1.4rem;
@@ -249,7 +356,6 @@ nav .cta:hover  { color: #0b1220; }
   text-transform: uppercase;
   z-index: 2;
 }
-/* Curseur clignotant après le tag */
 .nav-overlay__tag::after {
   content: '█';
   margin-left: 4px;
@@ -260,7 +366,6 @@ nav .cta:hover  { color: #0b1220; }
   50%       { opacity: 0; }
 }
 
-/* ── Bouton ✕ fermer ── */
 .nav-overlay__close {
   position: absolute;
   top: 0.9rem;
@@ -286,7 +391,6 @@ nav .cta:hover  { color: #0b1220; }
   box-shadow: 0 0 14px rgba(231,84,39,0.6);
 }
 
-/* ── Liste des liens ── */
 .nav-overlay__list {
   list-style: none;
   padding: 0;
@@ -322,7 +426,6 @@ nav .cta:hover  { color: #0b1220; }
   width: 100%;
 }
 
-/* Numéro de ligne à gauche */
 .nav-overlay__link::before {
   content: attr(data-index);
   font-size: 0.58rem;
@@ -334,7 +437,6 @@ nav .cta:hover  { color: #0b1220; }
   transition: color 0.2s;
 }
 
-/* Curseur ▶ à droite au hover */
 .nav-overlay__link::after {
   content: '';
   position: absolute;
@@ -358,7 +460,6 @@ nav .cta:hover  { color: #0b1220; }
   animation: nav-cursor 0.7s step-start infinite;
 }
 
-/* ── Séparateur décoratif entre groupes ── */
 .nav-overlay__sep {
   display: flex;
   align-items: center;
@@ -380,7 +481,6 @@ nav .cta:hover  { color: #0b1220; }
   letter-spacing: 0.2em;
 }
 
-/* ── Footer bas de l'overlay ── */
 .nav-overlay__footer {
   position: absolute;
   bottom: 1.4rem;
@@ -402,7 +502,6 @@ nav .cta:hover  { color: #0b1220; }
   animation: nav-cursor 1.4s step-start infinite;
 }
 
-/* Ligne déco basse */
 .nav-overlay__bottom-line {
   position: absolute;
   bottom: 0;
@@ -461,7 +560,7 @@ nav .cta:hover  { color: #0b1220; }
 }
 
 /* ══════════════════════════════════════
-   SUITE (fond dégradé)
+   SUITE
 ══════════════════════════════════════ */
 .Suite {
   background: linear-gradient(#dacabe, #000);
@@ -469,7 +568,7 @@ nav .cta:hover  { color: #0b1220; }
 }
 
 /* ══════════════════════════════════════
-   À PROPOS — en-tête texte
+   À PROPOS
 ══════════════════════════════════════ */
 .Apropo {
   padding: 60px 5% 40px;
@@ -505,7 +604,6 @@ nav .cta:hover  { color: #0b1220; }
   border-radius: 2px;
 }
 
-/* Photo + carte côte à côte */
 .me {
   display: flex;
   gap: 40px;
@@ -524,8 +622,6 @@ nav .cta:hover  { color: #0b1220; }
 /* ══════════════════════════════════════
    CARTE "PROFIL" — texte défilant
 ══════════════════════════════════════ */
-
-/* Flicker CRT */
 @keyframes flicker {
   0%,100% { opacity: 1; }
   92% { opacity: 1; } 93% { opacity: 0.92; } 94% { opacity: 1; }
@@ -550,7 +646,6 @@ nav .cta:hover  { color: #0b1220; }
   cursor: ns-resize;
 }
 
-/* Coins décoratifs */
 .card::before, .card::after,
 .card-inner::before, .card-inner::after {
   content: "";
@@ -565,7 +660,6 @@ nav .cta:hover  { color: #0b1220; }
 .card-inner::after  { bottom:-1px; left:-1px;  border-width: 0 0 2px 2px; }
 .card-inner { position: relative; }
 
-/* Header carte */
 .card-header {
   display: flex;
   align-items: center;
@@ -595,7 +689,6 @@ nav .cta:hover  { color: #0b1220; }
   margin-left: auto;
 }
 
-/* Viewport texte — une seule entrée visible */
 .text-viewport {
   position: relative;
   height: 160px;
@@ -647,7 +740,6 @@ nav .cta:hover  { color: #0b1220; }
 }
 @keyframes cursor-blink { 0%,100%{opacity:1} 50%{opacity:0} }
 
-/* Footer carte */
 .card-footer {
   margin-top: 24px;
   padding-top: 12px;
@@ -675,7 +767,6 @@ nav .cta:hover  { color: #0b1220; }
   transition: width 0.5s ease;
 }
 
-/* ── Boutons navigation carte (cachés par défaut, actifs sur mobile) ── */
 .card-nav-buttons {
   display: none;
   justify-content: center;
@@ -720,7 +811,7 @@ nav .cta:hover  { color: #0b1220; }
 }
 
 /* ══════════════════════════════════════
-   PARCOURS
+   PARCOURS — RÉTRO-FUTURISTE
 ══════════════════════════════════════ */
 .Parcours {
   margin-top: 5rem;
@@ -733,8 +824,24 @@ nav .cta:hover  { color: #0b1220; }
   perspective: 1000px;
 }
 
+/* Fond rétro-futuriste pour la section parcours */
+.Parcours {
+  position: relative;
+}
+.Parcours::before {
+  content: '';
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image:
+    linear-gradient(rgba(231,84,39,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(231,84,39,0.04) 1px, transparent 1px);
+  background-size: 44px 44px;
+}
+
 .etudes {
-  border-radius: 30px;
+  border-radius: 2px;  /* rétro-futuriste : angles droits */
   padding: 50px 40px;
   display: flex;
   align-items: center;
@@ -744,8 +851,68 @@ nav .cta:hover  { color: #0b1220; }
   position: relative;
   overflow: hidden;
   opacity: 0;
-  border: 1px solid rgba(255,255,255,0.1);
+  border: 1px solid rgba(116, 98, 94, 0.4);
   animation: float 6s ease-in-out infinite;
+  z-index: 1;
+}
+
+/* Ligne déco en haut des cartes formation */
+.etudes::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 10%;
+  right: 10%;
+  height: 2px;
+  z-index: 3;
+  transition: opacity 0.3s;
+}
+
+/* Coins décoratifs rétro sur les cartes formation */
+.etudes .corner-tl,
+.etudes .corner-tr,
+.etudes .corner-bl,
+.etudes .corner-br {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-color: rgba(218, 202, 190, 0.5);
+  border-style: solid;
+  z-index: 3;
+  transition: border-color 0.3s;
+}
+.etudes .corner-tl { top: 8px;    left: 8px;    border-width: 2px 0 0 2px; }
+.etudes .corner-tr { top: 8px;    right: 8px;   border-width: 2px 2px 0 0; }
+.etudes .corner-bl { bottom: 8px; left: 8px;    border-width: 0 0 2px 2px; }
+.etudes .corner-br { bottom: 8px; right: 8px;   border-width: 0 2px 2px 0; }
+
+/* Tag système en haut à gauche de chaque carte */
+.etudes .card-tag {
+  position: absolute;
+  top: 14px;
+  left: 20px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.55rem;
+  color: rgba(218, 202, 190, 0.35);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  z-index: 3;
+}
+
+/* Scanlines sur les cartes formation */
+.etudes::after {
+  content: '';
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 3px,
+    rgba(0,0,0,0.08) 3px,
+    rgba(0,0,0,0.08) 4px
+  );
 }
 
 .etudes.show       { opacity: 1; transform: translateY(0); }
@@ -755,36 +922,98 @@ nav .cta:hover  { color: #0b1220; }
 
 .etudes:hover {
   transform: scale(1.05);
-  box-shadow:
-    0 25px 50px -12px rgba(0,0,0,0.6),
-    0 0 60px rgba(var(--glow-color), 0.4),
-    inset 0 1px 0 rgba(255,255,255,0.2);
+}
+.etudes:hover .corner-tl,
+.etudes:hover .corner-tr,
+.etudes:hover .corner-bl,
+.etudes:hover .corner-br {
+  border-color: var(--rf-orange);
 }
 
+/* ── BTS ── */
 #BTS {
-  --glow-color: 59,130,246;
-  background: linear-gradient(135deg, #ad9a9a 0%, #917c65 100%);
+  --glow-color: 231, 84, 39;
+  background:
+    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(231,84,39,0.18), transparent 60%),
+    linear-gradient(160deg, #1a0d08 0%, #2a1510 50%, #1a1008 100%);
   width: 300px; height: 400px;
   margin-top: 10rem;
-  box-shadow: 0 20px 40px -15px #917c65, inset 0 1px 0 rgba(255,255,255,0.1);
+  box-shadow:
+    0 20px 40px -15px rgba(0,0,0,0.8),
+    0 0 0 1px rgba(116,98,94,0.25),
+    inset 0 1px 0 rgba(218,202,190,0.05);
   animation-delay: 0s;
 }
+#BTS::before { background: linear-gradient(90deg, transparent, rgba(147, 88, 68, 0.7), transparent); }
+#BTS:hover {
+  box-shadow:
+    0 25px 50px -12px rgba(0,0,0,0.9),
+    0 0 30px rgba(231, 84, 39, 0.25),
+    0 0 0 1px rgba(231,84,39,0.4),
+    inset 0 0 30px rgba(231,84,39,0.05);
+}
+
+/* ── BUT ── */
 #BUT {
-  --glow-color: 59,130,246;
-  background: linear-gradient(135deg, #ad9a9a 0%, #6a868b 100%);
+  --glow-color: 116, 98, 94;
+  background:
+    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(116,98,94,0.22), transparent 60%),
+    linear-gradient(160deg, #0e1214 0%, #141e20 50%, #0c1214 100%);
   width: 300px; height: 400px;
   margin-top: 15rem;
-  box-shadow: 0 20px 40px -15px #6a868b, inset 0 1px 0 rgba(255,255,255,0.1);
+  box-shadow:
+    0 20px 40px -15px rgba(0,0,0,0.8),
+    0 0 0 1px rgba(106,134,139,0.25),
+    inset 0 1px 0 rgba(218,202,190,0.05);
   animation-delay: 0.2s;
 }
+#BUT::before { background: linear-gradient(90deg, transparent, rgba(106,134,139,0.7), transparent); }
+#BUT:hover {
+  box-shadow:
+    0 25px 50px -12px rgba(0,0,0,0.9),
+    0 0 30px rgba(106, 134, 139, 0.25),
+    0 0 0 1px rgba(106,134,139,0.5),
+    inset 0 0 30px rgba(106,134,139,0.05);
+}
+#BUT .corner-tl,
+#BUT .corner-tr,
+#BUT .corner-bl,
+#BUT .corner-br { border-color: rgba(106,134,139,0.4); }
+#BUT:hover .corner-tl,
+#BUT:hover .corner-tr,
+#BUT:hover .corner-bl,
+#BUT:hover .corner-br { border-color: #6a868b; }
+
+/* ── BAC ── */
 #BAC {
-  --glow-color: 59,130,246;
-  background: linear-gradient(135deg, #9e8482 0%, #7c423e 100%);
+  --glow-color: 158, 132, 130;
+  background:
+    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(107,46,20,0.3), transparent 60%),
+    linear-gradient(160deg, #130a08 0%, #1e0e0a 50%, #130a08 100%);
   width: 300px; height: 400px;
   margin-top: 20rem;
-  box-shadow: 0 20px 40px -15px #9e8482, inset 0 1px 0 rgba(255,255,255,0.1);
+  box-shadow:
+    0 20px 40px -15px rgba(0,0,0,0.8),
+    0 0 0 1px rgba(107,46,20,0.35),
+    inset 0 1px 0 rgba(218,202,190,0.05);
   animation-delay: 0.4s;
 }
+#BAC::before { background: linear-gradient(90deg, transparent, rgba(107,46,20,0.8), transparent); }
+#BAC:hover {
+  box-shadow:
+    0 25px 50px -12px rgba(0,0,0,0.9),
+    0 0 30px rgba(107, 46, 20, 0.35),
+    0 0 0 1px rgba(107,46,20,0.6),
+    inset 0 0 30px rgba(107,46,20,0.08);
+}
+#BAC .corner-tl,
+#BAC .corner-tr,
+#BAC .corner-bl,
+#BAC .corner-br { border-color: rgba(107,46,20,0.5); }
+#BAC:hover .corner-tl,
+#BAC:hover .corner-tr,
+#BAC:hover .corner-bl,
+#BAC:hover .corner-br { border-color: #6b2e14; }
 
 @keyframes float {
   0%,100% { transform: translateY(0); }
@@ -792,85 +1021,271 @@ nav .cta:hover  { color: #0b1220; }
 }
 
 .titreE {
-  font-size: 32px;
-  font-weight: 800;
-  color: #fff;
+  font-family: 'Orbitron', monospace;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--rf-cream);
   text-align: center;
-  letter-spacing: -0.5px;
-  text-shadow: 0 2px 10px rgba(0,0,0,0.3), 0 0 20px rgba(255,255,255,0.2);
+  letter-spacing: 0.08em;
+  text-shadow: 0 0 20px rgba(218,202,190,0.4);
   z-index: 1;
   position: relative;
   transition: all 0.6s ease;
   text-transform: uppercase;
-  line-height: 1.2;
+  line-height: 1.3;
 }
 
 .description {
   opacity: 0;
   transform: translateY(50px);
   text-align: center;
-  color: #fff;
-  font-size: 1rem;
+  color: var(--rf-cream);
+  font-size: 0.88rem;
   padding: 0 10px;
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  line-height: 1.6;
   transition: all 0.6s ease;
   position: absolute;
   bottom: 20px;
   left: 15px; right: 20px;
+  z-index: 1;
 }
 
-#BTS:hover .titreE { transform: translateY(-80px); color: #d8d1ad; }
+#BTS:hover .titreE { transform: translateY(-80px); color: #e8b49a; text-shadow: 0 0 20px rgba(231,84,39,0.5); }
 #BTS:hover .description { opacity: 1; transform: translateY(0); }
-#BUT:hover .titreE { transform: translateY(-80px); color: #adced8; }
+#BUT:hover .titreE { transform: translateY(-80px); color: #adced8; text-shadow: 0 0 20px rgba(106,134,139,0.5); }
 #BUT:hover .description { opacity: 1; transform: translateY(0); }
-#BAC:hover .titreE { transform: translateY(-80px); color: #c5b0ad; }
+#BAC:hover .titreE { transform: translateY(-80px); color: #c9a090; text-shadow: 0 0 20px rgba(107,46,20,0.6); }
 #BAC:hover .description { opacity: 1; transform: translateY(0); }
 
 /* ══════════════════════════════════════
-   PROJETS
+   PROJETS — RÉTRO-FUTURISTE
 ══════════════════════════════════════ */
 .Projets {
   background-color: #000;
   padding: 20%;
+  position: relative;
+  overflow: hidden;
 }
+
+/* Grille de fond rétro sur la section projets */
+.Projets::before {
+  content: '';
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image:
+    linear-gradient(rgba(231,84,39,0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(231,84,39,0.035) 1px, transparent 1px);
+  background-size: 44px 44px;
+}
+
 .Projets ul {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 24px;
   list-style: none;
   max-width: 1100px;
+  position: relative;
+  z-index: 1;
 }
+
 .Projets li {
-  border-radius: 12px;
+  border-radius: 2px;       /* rétro-futuriste : angles droits */
   height: 220px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
-  font-size: 1.2rem;
-  font-weight: 600;
+  color: var(--rf-cream);
+  font-family: 'Orbitron', monospace;
+  font-size: 0.75rem;
+  font-weight: 700;
   text-transform: uppercase;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  letter-spacing: 0.12em;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(116, 98, 94, 0.3);
+  cursor: pointer;
 }
+
+/* Scanlines sur chaque carte projet */
+.Projets li::before {
+  content: '';
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 3px,
+    rgba(0,0,0,0.1) 3px,
+    rgba(0,0,0,0.1) 4px
+  );
+}
+
+/* Effet glitch/scan horizontal au hover */
+.Projets li::after {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0;
+  left: -100%;
+  width: 60%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255,255,255,0.06),
+    transparent
+  );
+  z-index: 3;
+  transition: none;
+}
+.Projets li:hover::after {
+  animation: projectScan 0.6s ease forwards;
+}
+@keyframes projectScan {
+  0%   { left: -60%; }
+  100% { left: 110%; }
+}
+
+/* Tag index en haut à droite */
+.Projets li .proj-index {
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.55rem;
+  color: rgba(218, 202, 190, 0.2);
+  letter-spacing: 0.15em;
+  z-index: 4;
+  transition: color 0.3s;
+}
+.Projets li:hover .proj-index {
+  color: rgba(218, 202, 190, 0.5);
+}
+
+/* Coins déco sur les cartes projet */
+.Projets li .pcorner {
+  position: absolute;
+  width: 12px; height: 12px;
+  border-style: solid;
+  z-index: 4;
+  transition: border-color 0.3s;
+}
+.Projets li .pcorner-tl { top: 8px;    left: 8px;    border-width: 2px 0 0 2px; border-color: rgba(218,202,190,0.2); }
+.Projets li .pcorner-br { bottom: 8px; right: 8px;   border-width: 0 2px 2px 0; border-color: rgba(218,202,190,0.2); }
+
+.Projets li:hover .pcorner-tl,
+.Projets li:hover .pcorner-br { border-color: rgba(218,202,190,0.7); }
+
+/* Texte du projet au centre */
+.Projets li .proj-label {
+  position: relative;
+  z-index: 4;
+  text-shadow: 0 0 20px rgba(0,0,0,0.6);
+  text-align: center;
+  padding: 0 1rem;
+}
+
 .Projets li:hover {
   transform: translateY(-6px);
-  box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+  border-color: rgba(218, 202, 190, 0.4);
 }
-.Projets li:nth-child(1) { background: linear-gradient(135deg, #4a63d4, #8e2de2); }
-.Projets li:nth-child(2) { background: linear-gradient(135deg, #8e2de2, #ad1b1b); }
-.Projets li:nth-child(3) { background: linear-gradient(135deg, #ad1b1b, #bd903d); }
-.Projets li:nth-child(4) { background: linear-gradient(135deg, #bd3d92, #4a63d4); }
-.Projets li:nth-child(5) { background: linear-gradient(135deg, #4a63d4, #bd903d); }
-.Projets li:nth-child(6) { background: linear-gradient(135deg, #bd903d, #2d9ae2); }
+
+/* Fonds rétro-futuristes pour chaque carte projet — palette sombre avec couleurs d'accent */
+.Projets li:nth-child(1) {
+  background:
+    radial-gradient(ellipse 70% 60% at 30% 20%, rgba(74,99,212,0.35), transparent 65%),
+    linear-gradient(150deg, #0a0c1a 0%, #0d1035 50%, #080a14 100%);
+  box-shadow: inset 0 0 40px rgba(74,99,212,0.08);
+}
+.Projets li:nth-child(1):hover {
+  box-shadow: 0 10px 30px rgba(74,99,212,0.25), 0 0 0 1px rgba(74,99,212,0.4), inset 0 0 40px rgba(74,99,212,0.1);
+}
+.Projets li:nth-child(1) .pcorner-tl,
+.Projets li:nth-child(1) .pcorner-br { border-color: rgba(74,99,212,0.3); }
+.Projets li:nth-child(1):hover .pcorner-tl,
+.Projets li:nth-child(1):hover .pcorner-br { border-color: rgba(74,99,212,0.8); }
+
+.Projets li:nth-child(2) {
+  background:
+    radial-gradient(ellipse 70% 60% at 70% 20%, rgba(142,45,226,0.3), transparent 65%),
+    linear-gradient(150deg, #120a1a 0%, #1a0830 50%, #0e0615 100%);
+  box-shadow: inset 0 0 40px rgba(142,45,226,0.08);
+}
+.Projets li:nth-child(2):hover {
+  box-shadow: 0 10px 30px rgba(142,45,226,0.25), 0 0 0 1px rgba(142,45,226,0.4), inset 0 0 40px rgba(142,45,226,0.1);
+}
+.Projets li:nth-child(2) .pcorner-tl,
+.Projets li:nth-child(2) .pcorner-br { border-color: rgba(142,45,226,0.3); }
+.Projets li:nth-child(2):hover .pcorner-tl,
+.Projets li:nth-child(2):hover .pcorner-br { border-color: rgba(142,45,226,0.8); }
+
+.Projets li:nth-child(3) {
+  background:
+    radial-gradient(ellipse 70% 60% at 50% 20%, rgba(173,27,27,0.3), transparent 65%),
+    linear-gradient(150deg, #140808 0%, #240a0a 50%, #100606 100%);
+  box-shadow: inset 0 0 40px rgba(173,27,27,0.08);
+}
+.Projets li:nth-child(3):hover {
+  box-shadow: 0 10px 30px rgba(173,27,27,0.3), 0 0 0 1px rgba(173,27,27,0.5), inset 0 0 40px rgba(173,27,27,0.1);
+}
+.Projets li:nth-child(3) .pcorner-tl,
+.Projets li:nth-child(3) .pcorner-br { border-color: rgba(173,27,27,0.3); }
+.Projets li:nth-child(3):hover .pcorner-tl,
+.Projets li:nth-child(3):hover .pcorner-br { border-color: rgba(173,27,27,0.8); }
+
+.Projets li:nth-child(4) {
+  background:
+    radial-gradient(ellipse 70% 60% at 30% 70%, rgba(189,61,146,0.3), transparent 65%),
+    linear-gradient(150deg, #160a12 0%, #220a18 50%, #100608 100%);
+  box-shadow: inset 0 0 40px rgba(189,61,146,0.08);
+}
+.Projets li:nth-child(4):hover {
+  box-shadow: 0 10px 30px rgba(189,61,146,0.25), 0 0 0 1px rgba(189,61,146,0.4), inset 0 0 40px rgba(189,61,146,0.1);
+}
+.Projets li:nth-child(4) .pcorner-tl,
+.Projets li:nth-child(4) .pcorner-br { border-color: rgba(189,61,146,0.3); }
+.Projets li:nth-child(4):hover .pcorner-tl,
+.Projets li:nth-child(4):hover .pcorner-br { border-color: rgba(189,61,146,0.8); }
+
+.Projets li:nth-child(5) {
+  background:
+    radial-gradient(ellipse 70% 60% at 70% 70%, rgba(189,144,61,0.3), transparent 65%),
+    linear-gradient(150deg, #140e06 0%, #201408 50%, #100c04 100%);
+  box-shadow: inset 0 0 40px rgba(189,144,61,0.08);
+}
+.Projets li:nth-child(5):hover {
+  box-shadow: 0 10px 30px rgba(189,144,61,0.25), 0 0 0 1px rgba(189,144,61,0.4), inset 0 0 40px rgba(189,144,61,0.1);
+}
+.Projets li:nth-child(5) .pcorner-tl,
+.Projets li:nth-child(5) .pcorner-br { border-color: rgba(189,144,61,0.3); }
+.Projets li:nth-child(5):hover .pcorner-tl,
+.Projets li:nth-child(5):hover .pcorner-br { border-color: rgba(189,144,61,0.8); }
+
+.Projets li:nth-child(6) {
+  background:
+    radial-gradient(ellipse 70% 60% at 50% 50%, rgba(45,154,226,0.3), transparent 65%),
+    linear-gradient(150deg, #080e16 0%, #0a1422 50%, #060c14 100%);
+  box-shadow: inset 0 0 40px rgba(45,154,226,0.08);
+}
+.Projets li:nth-child(6):hover {
+  box-shadow: 0 10px 30px rgba(45,154,226,0.25), 0 0 0 1px rgba(45,154,226,0.4), inset 0 0 40px rgba(45,154,226,0.1);
+}
+.Projets li:nth-child(6) .pcorner-tl,
+.Projets li:nth-child(6) .pcorner-br { border-color: rgba(45,154,226,0.3); }
+.Projets li:nth-child(6):hover .pcorner-tl,
+.Projets li:nth-child(6):hover .pcorner-br { border-color: rgba(45,154,226,0.8); }
 
 
 /* ══════════════════════════════════════════════════════════════════════
    VEILLE TECHNO — FLUTTER
-   Tous les styles sont scopés sous .fv-page-root
-   pour éviter tout conflit avec le reste du portfolio
 ══════════════════════════════════════════════════════════════════════ */
 
-/* ── Reset scope uniquement pour la page veille ── */
 .fv-page-root,
 .fv-page-root *,
 .fv-page-root *::before,
@@ -878,7 +1293,6 @@ nav .cta:hover  { color: #0b1220; }
   box-sizing: border-box;
 }
 
-/* ── Base page veille (remplace l'ancien sélecteur body) ── */
 .fv-page-root {
   background-color: var(--fv-bg);
   color: var(--fv-text);
@@ -889,7 +1303,6 @@ nav .cta:hover  { color: #0b1220; }
   min-height: 100vh;
 }
 
-/* ── Overlay effets CRT ── */
 .fv-scanlines {
   pointer-events: none;
   position: fixed;
@@ -1087,7 +1500,7 @@ nav .cta:hover  { color: #0b1220; }
 }
 
 /* ══════════════════════════════
-   CARD GRID (intro Flutter)
+   CARD GRID
 ══════════════════════════════ */
 .fv-card-grid {
   display: grid;
@@ -1180,7 +1593,6 @@ nav .cta:hover  { color: #0b1220; }
   font-size: 1rem;
 }
 
-/* ── Liste fv-list ── */
 .fv-list {
   list-style: none;
   padding: 0;
@@ -1234,7 +1646,6 @@ nav .cta:hover  { color: #0b1220; }
   letter-spacing: 0.15em;
 }
 
-/* ── Packages grid ── */
 .fv-packages-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -1550,7 +1961,6 @@ nav .cta:hover  { color: #0b1220; }
   font-family: var(--fv-font-mono);
 }
 
-/* ── Freq dots générés par JS ── */
 .fv-freq-dot {
   width: 8px;
   height: 8px;
@@ -1644,7 +2054,6 @@ nav .cta:hover  { color: #0b1220; }
   .fv-channel__freq { margin-left: 0; align-items: flex-start; }
 }
 
-
 /* ══════════════════════════════════════
    RESPONSIVE PORTFOLIO — TABLETTE
 ══════════════════════════════════════ */
@@ -1660,7 +2069,7 @@ nav .cta:hover  { color: #0b1220; }
   #BTS { height: 330px; }
   #BUT { height: 360px; }
   #BAC { height: 380px; }
-  .titreE { font-size: 28px; }
+  .titreE { font-size: 20px; }
   #Portfolio { width: 80%; max-width: 600px; height: auto; padding: 2rem; }
 }
 
@@ -1669,16 +2078,13 @@ nav .cta:hover  { color: #0b1220; }
 ══════════════════════════════════════ */
 @media (max-width: 768px) {
 
-  /* ── Header : afficher le burger, cacher la nav normale ── */
   .menu-toggle {
     display: block;
   }
   nav ul {
-    /* La nav normale est cachée sur mobile ; l'overlay prend le relais */
     display: none !important;
   }
 
-  /* ── Hero ── */
   .Menu {
     padding-top: 20%;
     padding-bottom: 28%;
@@ -1692,7 +2098,6 @@ nav .cta:hover  { color: #0b1220; }
     font-size: clamp(1.5rem, 6vw, 3rem);
   }
 
-  /* ── À propos ── */
   .Apropo {
     padding: 40px 4% 30px;
   }
@@ -1708,7 +2113,6 @@ nav .cta:hover  { color: #0b1220; }
     box-shadow: -1rem 1rem 0 #000;
   }
 
-  /* ── Carte texte défilant : positionnement absolu → statique + boutons ── */
   .card {
     width: 92vw;
     height: auto;
@@ -1721,7 +2125,6 @@ nav .cta:hover  { color: #0b1220; }
     min-height: 130px;
     overflow: visible;
   }
-  /* Tous les items cachés par défaut */
   .text-item {
     position: relative;
     inset: unset;
@@ -1731,18 +2134,15 @@ nav .cta:hover  { color: #0b1220; }
     transition: none;
     pointer-events: auto;
   }
-  /* Seul l'item actif est visible */
   .text-item.active {
     display: flex;
   }
   .text-item p { font-size: clamp(0.82rem, 3.5vw, 0.95rem); line-height: 1.75; }
 
-  /* ── Boutons nav carte : visibles sur mobile ── */
   .card-nav-buttons {
     display: flex;
   }
 
-  /* ── Parcours ── */
   .Parcours {
     flex-direction: column;
     align-items: center;
@@ -1756,13 +2156,11 @@ nav .cta:hover  { color: #0b1220; }
     height: 200px !important;
     margin-top: 0 !important;
   }
-  .titreE { font-size: 26px; }
+  .titreE { font-size: 18px; }
 
-  /* Reveal au tap (via .tapped ajouté par JS) */
   .etudes.tapped .titreE { transform: translateY(-60px); }
   .etudes.tapped .description { opacity: 1; transform: translateY(0); }
 
-  /* ── Projets ── */
   .Projets { padding: 10% 5%; }
   .Projets ul {
     grid-template-columns: repeat(2, 1fr);
@@ -1770,11 +2168,10 @@ nav .cta:hover  { color: #0b1220; }
   }
   .Projets li {
     height: 140px;
-    font-size: 0.9rem;
-    border-radius: 10px;
+    font-size: 0.65rem;
+    border-radius: 2px;
   }
 
-  /* ── Footer ── */
   footer { text-align: center; padding: 1rem; }
 }
 
@@ -1782,9 +2179,9 @@ nav .cta:hover  { color: #0b1220; }
    RESPONSIVE PORTFOLIO — PETIT MOBILE (≤480px)
 ══════════════════════════════════════ */
 @media (max-width: 480px) {
-  .title { font-size: 1.1rem; }
-  #site-sub { font-size: 0.9rem; }
-  .cta { font-size: 0.9rem; padding: 6px 10px; }
+  .title { font-size: 1rem; }
+  #site-sub { font-size: 0.75rem; }
+  .cta { font-size: 0.65rem; padding: 6px 10px; }
 
   #imgPresentation {
     width: 100%;
@@ -1804,9 +2201,9 @@ nav .cta:hover  { color: #0b1220; }
   }
   .Projets li {
     height: 120px;
-    font-size: 0.85rem;
+    font-size: 0.6rem;
   }
 
   .etudes { max-width: 300px !important; height: 180px !important; }
-  .titreE { font-size: 22px; }
+  .titreE { font-size: 16px; }
 }
