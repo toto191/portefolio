@@ -147,9 +147,270 @@ nav .cta:hover  { color: #0b1220; }
 .menu-toggle {
   display: none;
   background: none;
-  border: 0;
-  padding: 8px;
-  border-radius: 8px;
+  border: 1px solid rgba(116, 98, 94, 0.5);
+  padding: 8px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  color: #0b1220;
+  font-size: 1.2rem;
+  z-index: 2001;
+  position: relative;
+  transition: border-color 0.2s, color 0.2s;
+}
+.menu-toggle:hover {
+  border-color: var(--orange);
+  color: var(--orange);
+}
+
+/* ══════════════════════════════════════
+   NAV OVERLAY — PLEIN ÉCRAN RÉTRO-FUTURISTE
+   Affiché uniquement sur mobile (≤768px)
+══════════════════════════════════════ */
+.nav-overlay {
+  /* caché par défaut, activé via JS avec .is-open */
+  visibility: hidden;
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  /* Fond sombre chaud, même palette que la veille */
+  background:
+    radial-gradient(ellipse 70% 45% at 50% -5%, rgba(231,84,39,0.22), transparent 55%),
+    linear-gradient(170deg, #0e0906 0%, #160d08 55%, #1e1209 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  /* Transition d'ouverture */
+  opacity: 0;
+  transform: translateY(-8px);
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0s linear 0.3s;
+}
+
+/* État ouvert */
+.nav-overlay.is-open {
+  visibility: visible;
+  pointer-events: auto;
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0s linear 0s;
+}
+
+/* ── Scanlines CRT ── */
+.nav-overlay::before {
+  content: '';
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 3px,
+    rgba(0,0,0,0.12) 3px,
+    rgba(0,0,0,0.12) 4px
+  );
+}
+
+/* ── Ligne orange en haut ── */
+.nav-overlay::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 8%;
+  right: 8%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--orange), transparent);
+  z-index: 1;
+}
+
+/* ── Grille de fond subtile ── */
+.nav-overlay__grid {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image:
+    linear-gradient(rgba(231,84,39,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(231,84,39,0.04) 1px, transparent 1px);
+  background-size: 44px 44px;
+}
+
+/* ── Tag système coin haut-gauche ── */
+.nav-overlay__tag {
+  position: absolute;
+  top: 1.4rem;
+  left: 1.4rem;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.62rem;
+  color: rgba(231, 84, 39, 0.4);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  z-index: 2;
+}
+/* Curseur clignotant après le tag */
+.nav-overlay__tag::after {
+  content: '█';
+  margin-left: 4px;
+  animation: nav-cursor 1s step-start infinite;
+}
+@keyframes nav-cursor {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+/* ── Bouton ✕ fermer ── */
+.nav-overlay__close {
+  position: absolute;
+  top: 0.9rem;
+  right: 1rem;
+  background: none;
+  border: 1px solid rgba(231, 84, 39, 0.35);
+  color: rgba(231, 84, 39, 0.6);
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.95rem;
+  width: 38px;
+  height: 38px;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+}
+.nav-overlay__close:hover {
+  background: var(--orange);
+  color: #fff;
+  box-shadow: 0 0 14px rgba(231,84,39,0.6);
+}
+
+/* ── Liste des liens ── */
+.nav-overlay__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: min(420px, 88vw);
+  position: relative;
+  z-index: 2;
+}
+
+.nav-overlay__item {
+  border-top: 1px solid rgba(116, 98, 94, 0.18);
+}
+.nav-overlay__item:last-child {
+  border-bottom: 1px solid rgba(116, 98, 94, 0.18);
+}
+
+.nav-overlay__link {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 0.5rem 1rem 0;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: clamp(0.95rem, 4vw, 1.15rem);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #dacabe;
+  text-decoration: none;
+  position: relative;
+  transition: color 0.2s, padding-left 0.2s;
+  width: 100%;
+}
+
+/* Numéro de ligne à gauche */
+.nav-overlay__link::before {
+  content: attr(data-index);
+  font-size: 0.58rem;
+  color: rgba(231, 84, 39, 0.35);
+  letter-spacing: 0.08em;
+  min-width: 3ch;
+  flex-shrink: 0;
+  text-align: right;
+  transition: color 0.2s;
+}
+
+/* Curseur ▶ à droite au hover */
+.nav-overlay__link::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  color: var(--orange);
+  font-size: 0.65rem;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+
+.nav-overlay__link:hover,
+.nav-overlay__link:focus {
+  color: var(--orange);
+  padding-left: 0.5rem;
+  outline: none;
+}
+.nav-overlay__link:hover::before { color: var(--orange); }
+.nav-overlay__link:hover::after {
+  content: '▶';
+  opacity: 1;
+  animation: nav-cursor 0.7s step-start infinite;
+}
+
+/* ── Séparateur décoratif entre groupes ── */
+.nav-overlay__sep {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0.5rem 0;
+  opacity: 0.35;
+}
+.nav-overlay__sep::before,
+.nav-overlay__sep::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--orange);
+}
+.nav-overlay__sep span {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.55rem;
+  color: var(--orange);
+  letter-spacing: 0.2em;
+}
+
+/* ── Footer bas de l'overlay ── */
+.nav-overlay__footer {
+  position: absolute;
+  bottom: 1.4rem;
+  left: 0; right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.58rem;
+  color: rgba(116, 98, 94, 0.35);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  z-index: 2;
+}
+.nav-overlay__footer em {
+  font-style: normal;
+  color: var(--orange);
+  animation: nav-cursor 1.4s step-start infinite;
+}
+
+/* Ligne déco basse */
+.nav-overlay__bottom-line {
+  position: absolute;
+  bottom: 0;
+  left: 8%;
+  right: 8%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(231,84,39,0.4), transparent);
+  z-index: 1;
 }
 
 /* ══════════════════════════════════════
@@ -414,9 +675,48 @@ nav .cta:hover  { color: #0b1220; }
   transition: width 0.5s ease;
 }
 
-/* ── Boutons navigation carte (mobile uniquement, cachés par défaut) ── */
+/* ── Boutons navigation carte (cachés par défaut, actifs sur mobile) ── */
 .card-nav-buttons {
   display: none;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+  margin-top: 14px;
+}
+
+.card-nav-btn {
+  background: none;
+  border: 1px solid var(--orange);
+  color: var(--orange);
+  border-radius: 4px;
+  width: 36px;
+  height: 36px;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Share Tech Mono', monospace;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+}
+.card-nav-btn:hover,
+.card-nav-btn:active {
+  background: var(--orange);
+  color: #fff;
+  box-shadow: 0 0 10px rgba(231,84,39,0.5);
+}
+.card-nav-btn:disabled {
+  opacity: 0.25;
+  cursor: default;
+}
+
+.card-nav-counter {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.7rem;
+  color: rgba(231, 84, 39, 0.5);
+  letter-spacing: 3px;
+  min-width: 5ch;
+  text-align: center;
 }
 
 /* ══════════════════════════════════════
@@ -1369,18 +1669,14 @@ nav .cta:hover  { color: #0b1220; }
 ══════════════════════════════════════ */
 @media (max-width: 768px) {
 
-  /* ── Header ── */
-  .menu-toggle { display: block; cursor: pointer; }
-  nav ul {
-    display: none;
-    flex-direction: column;
-    background-color: #dacabe;
-    width: 100%;
-    padding: 20px 0;
+  /* ── Header : afficher le burger, cacher la nav normale ── */
+  .menu-toggle {
+    display: block;
   }
-  nav[data-open="true"] ul { display: flex; }
-  nav li { text-align: center; padding: 8px 0; }
-  .cta { margin: 10px auto; }
+  nav ul {
+    /* La nav normale est cachée sur mobile ; l'overlay prend le relais */
+    display: none !important;
+  }
 
   /* ── Hero ── */
   .Menu {
@@ -1412,12 +1708,12 @@ nav .cta:hover  { color: #0b1220; }
     box-shadow: -1rem 1rem 0 #000;
   }
 
-  /* ── Carte texte défilant : scroll → boutons sur mobile ── */
+  /* ── Carte texte défilant : positionnement absolu → statique + boutons ── */
   .card {
     width: 92vw;
     height: auto;
     min-height: 260px;
-    padding: 24px 20px 20px;
+    padding: 24px 20px 16px;
     cursor: default;
   }
   .text-viewport {
@@ -1425,6 +1721,7 @@ nav .cta:hover  { color: #0b1220; }
     min-height: 130px;
     overflow: visible;
   }
+  /* Tous les items cachés par défaut */
   .text-item {
     position: relative;
     inset: unset;
@@ -1434,44 +1731,15 @@ nav .cta:hover  { color: #0b1220; }
     transition: none;
     pointer-events: auto;
   }
+  /* Seul l'item actif est visible */
   .text-item.active {
     display: flex;
-    opacity: 1;
-    transform: none;
   }
   .text-item p { font-size: clamp(0.82rem, 3.5vw, 0.95rem); line-height: 1.75; }
 
-  /* Boutons nav carte — visibles uniquement mobile */
+  /* ── Boutons nav carte : visibles sur mobile ── */
   .card-nav-buttons {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 16px;
-    margin-top: 16px;
-  }
-  .card-nav-btn {
-    background: none;
-    border: 1px solid var(--orange);
-    color: var(--orange);
-    border-radius: 6px;
-    width: 36px;
-    height: 36px;
-    font-size: 1.1rem;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background 0.2s, color 0.2s;
-  }
-  .card-nav-btn:hover {
-    background: var(--orange);
-    color: #fff;
-  }
-  .card-nav-counter {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 0.72rem;
-    color: rgba(231, 84, 39, 0.55);
-    letter-spacing: 2px;
   }
 
   /* ── Parcours ── */
@@ -1490,14 +1758,12 @@ nav .cta:hover  { color: #0b1220; }
   }
   .titreE { font-size: 26px; }
 
-  /* Reveal hover → tap sur mobile (via .active ajouté par JS) */
+  /* Reveal au tap (via .tapped ajouté par JS) */
   .etudes.tapped .titreE { transform: translateY(-60px); }
   .etudes.tapped .description { opacity: 1; transform: translateY(0); }
 
   /* ── Projets ── */
-  .Projets {
-    padding: 10% 5%;
-  }
+  .Projets { padding: 10% 5%; }
   .Projets ul {
     grid-template-columns: repeat(2, 1fr);
     gap: 14px;
