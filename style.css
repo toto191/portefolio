@@ -513,50 +513,169 @@ nav .cta:hover  { color: #0e0906; }
 }
 
 /* ══════════════════════════════════════
-   HERO — PORTFOLIO
+   HERO — PORTFOLIO RÉTRO-FUTURISTE
 ══════════════════════════════════════ */
 .Menu {
-  padding-top: 12%;
-  padding-bottom: 20%;
-  background-color: #dacabe;
+  padding-top: 10%;
+  padding-bottom: 14%;
+  position: relative;
+  overflow: hidden;
+  /* Fond sombre chaud */
+  background:
+    radial-gradient(ellipse 90% 60% at 50% -5%, rgba(231,84,39,0.18), transparent 55%),
+    linear-gradient(180deg, #1a0d08 0%, #0e0906 60%, #160d08 100%);
+}
+
+/* Scanlines CRT sur le hero */
+.Menu::before {
+  content: '';
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 3px,
+    rgba(0,0,0,0.10) 3px,
+    rgba(0,0,0,0.10) 4px
+  );
+}
+
+/* Grille de fond */
+.Menu::after {
+  content: '';
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background-image:
+    linear-gradient(rgba(231,84,39,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(231,84,39,0.05) 1px, transparent 1px);
+  background-size: 44px 44px;
 }
 
 #Pfolio {
   text-align: center;
   display: flex;
   justify-content: center;
-  font-size: clamp(2rem, 6vw, 6rem);
+  align-items: center;
+  position: relative;
+  z-index: 2;
 }
 
+/* Cadre principal */
 #Portfolio {
-  width: 50%;
-  padding-top: 2.5%;
-  height: 200px;
-  border: 2px solid #001f2b;
+  font-family: 'Orbitron', monospace;
+  font-size: clamp(2rem, 6vw, 5.5rem);
+  font-weight: 900;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--rf-cream);
+  text-shadow:
+    0 0 30px rgba(231,84,39,0.5),
+    0 0 80px rgba(231,84,39,0.2);
+
+  width: fit-content;
+  padding: 2rem 3.5rem;
   position: relative;
-  animation: bougeCadre2 5s ease-in-out infinite alternate;
+
+  /* Cadre 1 — orange vif */
+  border: 1px solid var(--rf-orange);
+  box-shadow:
+    0 0 0 1px rgba(231,84,39,0.2),
+    0 0 30px rgba(231,84,39,0.15),
+    inset 0 0 30px rgba(231,84,39,0.04);
+
+  animation: heroFloat 6s ease-in-out infinite alternate, heroPulse 4s ease-in-out infinite;
 }
-#Portfolio::after {
+
+/* Cadre 2 — décalé, animé différemment */
+#Portfolio::before {
   content: "";
   position: absolute;
   top: 10px; left: 10px;
-  width: 100%; height: 100%;
-  border: 2px solid #001f2b;
-  z-index: 2;
-  animation: bougeCadre 5s ease-in-out infinite alternate;
+  right: -10px; bottom: -10px;
+  border: 1px solid rgba(231,84,39,0.35);
+  box-shadow: 0 0 20px rgba(231,84,39,0.08);
+  animation: heroFrameShift 6s ease-in-out infinite alternate-reverse;
+  pointer-events: none;
+  z-index: -1;
 }
 
-@keyframes bougeCadre {
-  0%   { transform: translate(10px, 10px); }
-  50%  { transform: translate(15px, 5px); }
-  100% { transform: translate(8px, 12px); }
+/* Coins décoratifs sur le cadre principal */
+#Portfolio::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  background:
+    /* coin haut-gauche */
+    linear-gradient(var(--rf-orange), var(--rf-orange)) top left / 18px 2px no-repeat,
+    linear-gradient(var(--rf-orange), var(--rf-orange)) top left / 2px 18px no-repeat,
+    /* coin haut-droit */
+    linear-gradient(var(--rf-orange), var(--rf-orange)) top right / 18px 2px no-repeat,
+    linear-gradient(var(--rf-orange), var(--rf-orange)) top right / 2px 18px no-repeat,
+    /* coin bas-gauche */
+    linear-gradient(var(--rf-orange), var(--rf-orange)) bottom left / 18px 2px no-repeat,
+    linear-gradient(var(--rf-orange), var(--rf-orange)) bottom left / 2px 18px no-repeat,
+    /* coin bas-droit */
+    linear-gradient(var(--rf-orange), var(--rf-orange)) bottom right / 18px 2px no-repeat,
+    linear-gradient(var(--rf-orange), var(--rf-orange)) bottom right / 2px 18px no-repeat;
+  pointer-events: none;
+  z-index: 1;
 }
-@keyframes bougeCadre2 {
-  0%   { transform: translate(10px, 10px); }
-  25%  { transform: translate(12px, 12px); }
-  50%  { transform: translate(14px, 15px); }
-  75%  { transform: translate(12px, 7px); }
-  100% { transform: translate(9px, 9px); }
+
+/* Tag système sous le titre */
+#Portfolio .hero-tag {
+  display: block;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.6rem;
+  color: rgba(231,84,39,0.45);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  text-shadow: none;
+  margin-top: 0.6rem;
+  text-align: center;
+}
+
+/* Curseur clignotant après le texte */
+#Portfolio .hero-cursor {
+  display: inline-block;
+  width: 3px;
+  height: 0.85em;
+  background: var(--rf-orange);
+  margin-left: 6px;
+  vertical-align: middle;
+  box-shadow: 0 0 8px var(--rf-orange);
+  animation: heroCursor 1s step-start infinite;
+}
+
+@keyframes heroCursor {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+@keyframes heroFloat {
+  0%   { transform: translateY(0px); }
+  100% { transform: translateY(-12px); }
+}
+
+@keyframes heroPulse {
+  0%, 100% {
+    text-shadow: 0 0 30px rgba(231,84,39,0.5), 0 0 80px rgba(231,84,39,0.2);
+    box-shadow: 0 0 0 1px rgba(231,84,39,0.2), 0 0 30px rgba(231,84,39,0.15), inset 0 0 30px rgba(231,84,39,0.04);
+  }
+  50% {
+    text-shadow: 0 0 50px rgba(231,84,39,0.8), 0 0 120px rgba(231,84,39,0.35);
+    box-shadow: 0 0 0 1px rgba(231,84,39,0.4), 0 0 50px rgba(231,84,39,0.3), inset 0 0 40px rgba(231,84,39,0.08);
+  }
+}
+
+@keyframes heroFrameShift {
+  0%   { transform: translate(0px, 0px); opacity: 0.5; }
+  30%  { transform: translate(3px, -2px); opacity: 0.7; }
+  60%  { transform: translate(-2px, 4px); opacity: 0.4; }
+  100% { transform: translate(5px, 2px); opacity: 0.6; }
 }
 
 /* ══════════════════════════════════════
