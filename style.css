@@ -76,7 +76,6 @@ header {
   box-shadow:
     0 2px 0 rgba(231, 84, 39, 0.15),
     0 4px 20px rgba(0, 0, 0, 0.6);
-  /* Scanlines subtiles sur le header */
   background-image:
     repeating-linear-gradient(
       to bottom,
@@ -88,7 +87,6 @@ header {
     linear-gradient(180deg, #1a0d08 0%, #0e0906 100%);
 }
 
-/* Ligne orange en haut du header */
 header::before {
   content: '';
   position: absolute;
@@ -100,7 +98,6 @@ header::before {
   z-index: 1;
 }
 
-/* Grille de fond subtile dans le header */
 header::after {
   content: '';
   pointer-events: none;
@@ -144,7 +141,6 @@ nav a   {
   transition: color 0.25s ease, text-shadow 0.25s ease;
 }
 
-/* Soulignement animé rétro */
 nav a::after {
   content: '';
   position: absolute;
@@ -162,11 +158,9 @@ nav a:hover {
 }
 nav a:hover::after { width: 100%; left: 0; }
 
-/* Sauf le bouton CTA */
 nav .cta::after { display: none; }
 nav .cta:hover  { color: #0e0906; }
 
-/* CTA — rétro-futuriste */
 @keyframes gradientFlow {
   0%   { background-position: 0% 50%; }
   50%  { background-position: 100% 50%; }
@@ -196,7 +190,6 @@ nav .cta:hover  { color: #0e0906; }
   transition: background 0.25s, color 0.25s;
 }
 
-/* Effet glitch/scan sur le CTA */
 .cta::before {
   content: '';
   position: absolute;
@@ -216,7 +209,6 @@ nav .cta:hover  { color: #0e0906; }
   color: #0e0906;
 }
 
-/* Logo / titre */
 .logo {
   width: 50px; height: 50px;
   background-color: #1a0d08;
@@ -233,7 +225,6 @@ nav .cta:hover  { color: #0e0906; }
   margin-right: 10px;
   position: relative;
 }
-/* Coins déco sur le logo */
 .logo::before, .logo::after {
   content: '';
   position: absolute;
@@ -520,13 +511,11 @@ nav .cta:hover  { color: #0e0906; }
   padding-bottom: 14%;
   position: relative;
   overflow: hidden;
-  /* Fond sombre chaud */
   background:
     radial-gradient(ellipse 90% 60% at 50% -5%, rgba(231,84,39,0.18), transparent 55%),
     linear-gradient(180deg, #1a0d08 0%, #0e0906 60%, #160d08 100%);
 }
 
-/* Scanlines CRT sur le hero */
 .Menu::before {
   content: '';
   pointer-events: none;
@@ -542,7 +531,6 @@ nav .cta:hover  { color: #0e0906; }
   );
 }
 
-/* Grille de fond */
 .Menu::after {
   content: '';
   pointer-events: none;
@@ -564,7 +552,6 @@ nav .cta:hover  { color: #0e0906; }
   z-index: 2;
 }
 
-/* Cadre principal */
 #Portfolio {
   font-family: 'Orbitron', monospace;
   font-size: clamp(2rem, 6vw, 5.5rem);
@@ -580,7 +567,6 @@ nav .cta:hover  { color: #0e0906; }
   padding: 2rem 3.5rem;
   position: relative;
 
-  /* Cadre 1 — orange vif */
   border: 1px solid var(--rf-orange);
   box-shadow:
     0 0 0 1px rgba(231,84,39,0.2),
@@ -590,7 +576,6 @@ nav .cta:hover  { color: #0e0906; }
   animation: heroFloat 6s ease-in-out infinite alternate, heroPulse 4s ease-in-out infinite;
 }
 
-/* Cadre 2 — décalé, animé différemment */
 #Portfolio::before {
   content: "";
   position: absolute;
@@ -603,29 +588,23 @@ nav .cta:hover  { color: #0e0906; }
   z-index: -1;
 }
 
-/* Coins décoratifs sur le cadre principal */
 #Portfolio::after {
   content: "";
   position: absolute;
   inset: -1px;
   background:
-    /* coin haut-gauche */
     linear-gradient(var(--rf-orange), var(--rf-orange)) top left / 18px 2px no-repeat,
     linear-gradient(var(--rf-orange), var(--rf-orange)) top left / 2px 18px no-repeat,
-    /* coin haut-droit */
     linear-gradient(var(--rf-orange), var(--rf-orange)) top right / 18px 2px no-repeat,
     linear-gradient(var(--rf-orange), var(--rf-orange)) top right / 2px 18px no-repeat,
-    /* coin bas-gauche */
     linear-gradient(var(--rf-orange), var(--rf-orange)) bottom left / 18px 2px no-repeat,
     linear-gradient(var(--rf-orange), var(--rf-orange)) bottom left / 2px 18px no-repeat,
-    /* coin bas-droit */
     linear-gradient(var(--rf-orange), var(--rf-orange)) bottom right / 18px 2px no-repeat,
     linear-gradient(var(--rf-orange), var(--rf-orange)) bottom right / 2px 18px no-repeat;
   pointer-events: none;
   z-index: 1;
 }
 
-/* Tag système sous le titre */
 #Portfolio .hero-tag {
   display: block;
   font-family: 'Share Tech Mono', monospace;
@@ -638,7 +617,6 @@ nav .cta:hover  { color: #0e0906; }
   text-align: center;
 }
 
-/* Curseur clignotant après le texte */
 #Portfolio .hero-cursor {
   display: inline-block;
   width: 3px;
@@ -943,7 +921,6 @@ nav .cta:hover  { color: #0e0906; }
   perspective: 1000px;
 }
 
-/* Fond rétro-futuriste pour la section parcours */
 .Parcours {
   position: relative;
 }
@@ -960,7 +937,7 @@ nav .cta:hover  { color: #0e0906; }
 }
 
 .etudes {
-  border-radius: 2px;  /* rétro-futuriste : angles droits */
+  border-radius: 2px;
   padding: 50px 40px;
   display: flex;
   align-items: center;
@@ -975,7 +952,6 @@ nav .cta:hover  { color: #0e0906; }
   z-index: 1;
 }
 
-/* Ligne déco en haut des cartes formation */
 .etudes::before {
   content: '';
   position: absolute;
@@ -987,7 +963,6 @@ nav .cta:hover  { color: #0e0906; }
   transition: opacity 0.3s;
 }
 
-/* Coins décoratifs rétro sur les cartes formation */
 .etudes .corner-tl,
 .etudes .corner-tr,
 .etudes .corner-bl,
@@ -1005,7 +980,6 @@ nav .cta:hover  { color: #0e0906; }
 .etudes .corner-bl { bottom: 8px; left: 8px;    border-width: 0 0 2px 2px; }
 .etudes .corner-br { bottom: 8px; right: 8px;   border-width: 0 2px 2px 0; }
 
-/* Tag système en haut à gauche de chaque carte */
 .etudes .card-tag {
   position: absolute;
   top: 14px;
@@ -1018,7 +992,6 @@ nav .cta:hover  { color: #0e0906; }
   z-index: 3;
 }
 
-/* Scanlines sur les cartes formation */
 .etudes::after {
   content: '';
   pointer-events: none;
@@ -1183,20 +1156,19 @@ nav .cta:hover  { color: #0e0906; }
    PROJETS — RÉTRO-FUTURISTE
 ══════════════════════════════════════ */
 .project-link {
-  display: flex;             /* Active le mode Flexbox */
-  flex-direction: column;    /* Aligne les éléments (01 et Projet 1) l'un sous l'autre */
-  justify-content: center;   /* Centre verticalement */
-  align-items: center;       /* Centre horizontalement */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   
   width: 100%;
   height: 100%;
-  min-height: 150px;         /* Ajuste selon la taille de tes cases */
+  min-height: 150px;
   text-decoration: none;
   color: inherit;
-  position: relative;        /* Pour que les coins (pcorner) restent fixés aux bords */
+  position: relative;
 }
 
-/* Optionnel : un petit effet au survol pour montrer que c'est cliquable */
 .project-link:hover {
   background-color: rgba(255, 255, 255, 0.05); 
 }
@@ -1208,7 +1180,6 @@ nav .cta:hover  { color: #0e0906; }
   overflow: hidden;
 }
 
-/* Grille de fond rétro sur la section projets */
 .Projets::before {
   content: '';
   pointer-events: none;
@@ -1232,7 +1203,7 @@ nav .cta:hover  { color: #0e0906; }
 }
 
 .Projets li {
-  border-radius: 2px;       /* rétro-futuriste : angles droits */
+  border-radius: 2px;
   height: 220px;
   display: flex;
   align-items: center;
@@ -1250,7 +1221,6 @@ nav .cta:hover  { color: #0e0906; }
   cursor: pointer;
 }
 
-/* Scanlines sur chaque carte projet */
 .Projets li::before {
   content: '';
   pointer-events: none;
@@ -1266,7 +1236,6 @@ nav .cta:hover  { color: #0e0906; }
   );
 }
 
-/* Effet glitch/scan horizontal au hover */
 .Projets li::after {
   content: '';
   position: absolute;
@@ -1290,7 +1259,6 @@ nav .cta:hover  { color: #0e0906; }
   100% { left: 110%; }
 }
 
-/* Tag index en haut à droite */
 .Projets li .proj-index {
   position: absolute;
   top: 10px;
@@ -1306,7 +1274,6 @@ nav .cta:hover  { color: #0e0906; }
   color: rgba(218, 202, 190, 0.5);
 }
 
-/* Coins déco sur les cartes projet */
 .Projets li .pcorner {
   position: absolute;
   width: 12px; height: 12px;
@@ -1320,7 +1287,6 @@ nav .cta:hover  { color: #0e0906; }
 .Projets li:hover .pcorner-tl,
 .Projets li:hover .pcorner-br { border-color: rgba(218,202,190,0.7); }
 
-/* Texte du projet au centre */
 .Projets li .proj-label {
   position: relative;
   z-index: 4;
@@ -1334,7 +1300,6 @@ nav .cta:hover  { color: #0e0906; }
   border-color: rgba(218, 202, 190, 0.4);
 }
 
-/* Fonds rétro-futuristes pour chaque carte projet — palette sombre avec couleurs d'accent */
 .Projets li:nth-child(1) {
   background:
     radial-gradient(ellipse 70% 60% at 30% 20%, rgba(74,99,212,0.35), transparent 65%),
@@ -2213,54 +2178,74 @@ nav .cta:hover  { color: #0e0906; }
 
 /* ══════════════════════════════════════
    RESPONSIVE PORTFOLIO — MOBILE (≤768px)
+   Chaque section occupe tout l'écran,
+   sans chevauchement entre sections.
 ══════════════════════════════════════ */
 @media (max-width: 768px) {
 
-  .menu-toggle {
-    display: block;
-  }
-  nav ul {
-    display: none !important;
-  }
+  /* ── Header ── */
+  .menu-toggle { display: block; }
+  nav ul { display: none !important; }
 
+  /* ══ HERO : plein écran ══ */
   .Menu {
-    padding-top: 20%;
-    padding-bottom: 28%;
+    min-height: 100svh;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* overflow:hidden évite que le cadre décalé #Portfolio::before déborde */
+    overflow: hidden;
   }
-  #Pfolio { font-size: clamp(2rem, 8vw, 5rem); }
+  #Pfolio {
+    width: 100%;
+    padding: 0 1.5rem;
+  }
   #Portfolio {
-    width: 85%;
+    width: 88%;
+    max-width: 360px;
     height: auto;
-    min-height: 80px;
-    padding: 1.2rem;
-    font-size: clamp(1.5rem, 6vw, 3rem);
+    min-height: unset;
+    padding: 1.4rem 1rem;
+    font-size: clamp(1.4rem, 7vw, 2.2rem);
+    /* Stopper heroFloat qui pousse le cadre hors écran */
+    animation: heroPulse 4s ease-in-out infinite;
   }
 
+  /* ══ À PROPOS : plein écran ══ */
   .Apropo {
-    padding: 40px 4% 30px;
+    min-height: 100svh;
+    padding: 5rem 5% 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
   }
   .about-name { font-size: clamp(1.4rem, 5vw, 2rem); }
   .me {
     flex-direction: column;
     align-items: center;
     gap: 24px;
+    flex: 1;
+    justify-content: center;
   }
   #imgPresentation {
-    width: 90%;
-    max-width: 320px;
+    width: 65%;
+    max-width: 260px;
     box-shadow: -1rem 1rem 0 #000;
   }
 
+  /* Carte profil : hauteur automatique, pas de débordement */
   .card {
     width: 92vw;
     height: auto;
-    min-height: 260px;
+    min-height: unset;
     padding: 24px 20px 16px;
     cursor: default;
   }
   .text-viewport {
     height: auto;
-    min-height: 130px;
+    min-height: 110px;
     overflow: visible;
   }
   .text-item {
@@ -2272,40 +2257,58 @@ nav .cta:hover  { color: #0e0906; }
     transition: none;
     pointer-events: auto;
   }
-  .text-item.active {
-    display: flex;
-  }
+  .text-item.active { display: flex; }
   .text-item p { font-size: clamp(0.82rem, 3.5vw, 0.95rem); line-height: 1.75; }
 
-  .card-nav-buttons {
-    display: flex;
-  }
+  .card-nav-buttons { display: flex; }
 
+  /* ══ PARCOURS : plein écran ══ */
   .Parcours {
+    min-height: 100svh;
     flex-direction: column;
     align-items: center;
-    gap: 40px;
-    margin: 40px 0;
-    padding: 3rem 1rem;
+    justify-content: center;
+    gap: 20px;
+    /* Supprimer la marge/padding excessifs du desktop */
+    margin: 0;
+    padding: 5rem 1rem 4rem;
+    overflow: hidden;
   }
+  /* Réinitialiser les marges top décalées (#BTS: 10rem, #BUT: 15rem, #BAC: 20rem) */
   .etudes {
-    width: 100% !important;
-    max-width: 340px;
-    height: 200px !important;
+    width: 88vw !important;
+    max-width: 360px;
+    height: 160px !important;
     margin-top: 0 !important;
+    /* Désactiver l'animation float pour éviter tout dépassement */
+    animation: none !important;
+    /* Forcer visible car opacity:0 par défaut avant .show */
+    opacity: 1 !important;
+    transform: translateY(0) !important;
   }
-  .titreE { font-size: 18px; }
+  .titreE { font-size: 17px; }
 
-  .etudes.tapped .titreE { transform: translateY(-60px); }
+  /* Tap pour révéler la description sur mobile */
+  .etudes.tapped .titreE { transform: translateY(-55px); }
   .etudes.tapped .description { opacity: 1; transform: translateY(0); }
 
-  .Projets { padding: 10% 5%; }
+  /* ══ PROJETS : plein écran ══ */
+  .Projets {
+    min-height: 100svh;
+    padding: 5rem 4% 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+  }
   .Projets ul {
     grid-template-columns: repeat(2, 1fr);
-    gap: 14px;
+    gap: 12px;
+    width: 100%;
+    max-width: 100%;
   }
   .Projets li {
-    height: 140px;
+    height: 130px;
     font-size: 0.65rem;
     border-radius: 2px;
   }
@@ -2321,9 +2324,15 @@ nav .cta:hover  { color: #0e0906; }
   #site-sub { font-size: 0.75rem; }
   .cta { font-size: 0.65rem; padding: 6px 10px; }
 
+  #Portfolio {
+    width: 92%;
+    font-size: clamp(1.2rem, 6.5vw, 1.8rem);
+    padding: 1.2rem 0.8rem;
+  }
+
   #imgPresentation {
-    width: 100%;
-    max-width: 280px;
+    width: 75%;
+    max-width: 220px;
     box-shadow: -0.6rem 0.6rem 0 #000;
   }
 
@@ -2333,15 +2342,19 @@ nav .cta:hover  { color: #0e0906; }
   }
   .text-item p { font-size: 0.82rem; }
 
+  /* Une seule colonne pour les projets sur très petit écran */
   .Projets ul {
     grid-template-columns: 1fr;
-    gap: 12px;
+    gap: 10px;
   }
   .Projets li {
-    height: 120px;
+    height: 100px;
     font-size: 0.6rem;
   }
 
-  .etudes { max-width: 300px !important; height: 180px !important; }
-  .titreE { font-size: 16px; }
+  .etudes {
+    max-width: 320px !important;
+    height: 145px !important;
+  }
+  .titreE { font-size: 15px; }
 }
