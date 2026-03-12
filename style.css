@@ -2322,7 +2322,7 @@ nav .cta:hover  { color: #0e0906; }
 ══════════════════════════════════════ */
 .Experience-section {
   padding: 60px 5% 60px;
-  background: linear-gradient(180deg, #0e0906 0%, #160d08 100%);
+  background: linear-gradient(180deg, #000000 0%, #000000 100%);
   position: relative;
   overflow: hidden;
 }
