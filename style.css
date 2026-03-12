@@ -2316,6 +2316,221 @@ nav .cta:hover  { color: #0e0906; }
   footer { text-align: center; padding: 1rem; }
 }
 
+
+/* ══════════════════════════════════════
+   EXPÉRIENCE — RÉTRO-FUTURISTE
+══════════════════════════════════════ */
+.Experience-section {
+  padding: 60px 5% 60px;
+  background: linear-gradient(180deg, #0e0906 0%, #160d08 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.Experience-section::before {
+  content: '';
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image:
+    linear-gradient(rgba(231,84,39,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(231,84,39,0.03) 1px, transparent 1px);
+  background-size: 44px 44px;
+}
+
+.exp-header {
+  position: relative;
+  z-index: 1;
+  margin-bottom: 40px;
+}
+
+.exp-label {
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-size: 0.72rem;
+  color: var(--orange);
+  font-family: 'Share Tech Mono', monospace;
+  margin-bottom: 12px;
+}
+
+.exp-divider {
+  width: 80px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--orange), transparent);
+  border-radius: 2px;
+}
+
+.exp-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 900px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Ligne verticale connectant les items */
+.exp-list::before {
+  content: '';
+  position: absolute;
+  left: -20px;
+  top: 0; bottom: 0;
+  width: 1px;
+  background: linear-gradient(180deg, var(--orange), transparent);
+  opacity: 0.3;
+}
+
+.exp-item {
+  position: relative;
+  border: 1px solid rgba(116, 98, 94, 0.35);
+  border-radius: 2px;
+  padding: 24px 28px;
+  display: flex;
+  gap: 32px;
+  align-items: flex-start;
+  background: linear-gradient(135deg, #1a0d08 0%, #0e0906 100%);
+  transition: border-color 0.3s, box-shadow 0.3s;
+  overflow: hidden;
+}
+
+.exp-item::after {
+  content: '';
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px, transparent 3px,
+    rgba(0,0,0,0.07) 3px, rgba(0,0,0,0.07) 4px
+  );
+}
+
+.exp-item:hover {
+  border-color: rgba(231, 84, 39, 0.5);
+  box-shadow: 0 0 24px rgba(231, 84, 39, 0.1), inset 0 0 20px rgba(231,84,39,0.03);
+}
+
+/* Items mineurs (jobs, voyage) légèrement plus discrets */
+.exp-item--minor {
+  padding: 16px 24px;
+  background: linear-gradient(135deg, #130907 0%, #0a0604 100%);
+}
+.exp-item--minor .exp-title {
+  font-size: 0.85rem;
+}
+.exp-item--minor .exp-right p {
+  font-size: 0.8rem;
+  opacity: 0.75;
+}
+
+/* Coins décoratifs */
+.exp-corner {
+  position: absolute;
+  width: 12px; height: 12px;
+  border-style: solid;
+  border-color: rgba(231, 84, 39, 0.3);
+  transition: border-color 0.3s;
+  z-index: 2;
+}
+.exp-corner-tl { top: 8px; left: 8px; border-width: 2px 0 0 2px; }
+.exp-corner-br { bottom: 8px; right: 8px; border-width: 0 2px 2px 0; }
+.exp-item:hover .exp-corner { border-color: rgba(231, 84, 39, 0.8); }
+
+/* Tag SYS */
+.exp-tag {
+  position: absolute;
+  top: 10px; right: 16px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.52rem;
+  color: rgba(231, 84, 39, 0.3);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  z-index: 2;
+  transition: color 0.3s;
+}
+.exp-item:hover .exp-tag { color: rgba(231, 84, 39, 0.6); }
+
+/* Colonne gauche */
+.exp-left {
+  min-width: 180px;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 2;
+}
+
+.exp-title {
+  font-family: 'Orbitron', monospace;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--rf-cream);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.exp-date {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.65rem;
+  color: rgba(231, 84, 39, 0.6);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+/* Séparateur vertical entre left/right */
+.exp-left::after {
+  content: '';
+  position: absolute;
+  right: -16px;
+  top: 4px; bottom: 0;
+  width: 1px;
+  background: linear-gradient(180deg, rgba(231,84,39,0.25), transparent);
+}
+
+/* Colonne droite */
+.exp-right {
+  flex: 1;
+  position: relative;
+  z-index: 2;
+}
+
+.exp-right p {
+  font-family: 'Special Elite', monospace;
+  font-size: 0.85rem;
+  color: #c9a890;
+  line-height: 1.75;
+  margin: 0 0 12px;
+  text-shadow: 0 0 10px rgba(231,84,39,0.15);
+}
+
+/* Tags technos */
+.exp-stack {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.exp-stack span {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.6rem;
+  color: rgba(231, 84, 39, 0.7);
+  border: 1px solid rgba(231, 84, 39, 0.25);
+  padding: 2px 8px;
+  border-radius: 2px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  background: rgba(231, 84, 39, 0.05);
+  transition: border-color 0.2s, color 0.2s;
+}
+.exp-item:hover .exp-stack span {
+  border-color: rgba(231, 84, 39, 0.5);
+  color: rgba(231, 84, 39, 1);
+  
+}
+
+/* ── Responsive Expérience ── */
+
+
 /* ══════════════════════════════════════
    RESPONSIVE PORTFOLIO — PETIT MOBILE (≤480px)
 ══════════════════════════════════════ */
@@ -2357,4 +2572,16 @@ nav .cta:hover  { color: #0e0906; }
     height: 145px !important;
   }
   .titreE { font-size: 15px; }
+
+
+
+  .Experience-section { padding: 4rem 5% 3rem; }
+  .exp-item {
+    flex-direction: column;
+    gap: 14px;
+    padding: 20px 18px;
+  }
+  .exp-left { min-width: unset; }
+  .exp-left::after { display: none; }
+  .exp-item--minor { padding: 14px 16px; }
 }
