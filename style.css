@@ -177,6 +177,8 @@ nav .cta:hover  { color: #0e0906; }
 }
 
 .cta {
+  display: inline-block;
+  vertical-align: middle;
   padding: 7px 16px;
   border-radius: 2px;
   border: 1px solid var(--rf-orange);
@@ -193,6 +195,8 @@ nav .cta:hover  { color: #0e0906; }
   position: relative;
   overflow: hidden;
   transition: background 0.25s, color 0.25s;
+  box-decoration-break: slice;
+  line-height: 1.2;
 }
 
 .cta::before {
