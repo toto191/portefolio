@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>Réalisations Professionnelles - BTS SIO</title>
+  <style>
+    /* Scan lines overlay */
+    .realisations-container {
+      position: relative;
+      background: #0e0906;
+      color: #dacabe;
+      font-family: 'Rajdhani', sans-serif;
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+
+    .realisations-container::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      background: repeating-linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.15),
+        rgba(0, 0, 0, 0.15) 1px,
+        transparent 1px,
+        transparent 2px
+      );
+      z-index: 999;
+    }
+
+    /* Header */
+    .real-header {
+      max-width: 1200px;
+      margin: 0 auto 40px;
+      text-align: center;
+    }
+
+    .real-header::before {
+      content: '';
+      display: block;
+      width: 100%;
+      height: 2px;
+      background: repeating-linear-gradient(
+        90deg,
+        #e75427,
+        #e75427 10px,
+        transparent 10px,
+        transparent 20px
+      );
+      margin-bottom: 20px;
+    }
+
+    .real-header h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2em;
+      font-weight: 900;
+      letter-spacing: 3px;
+      color: #e75427;
+      margin: 0 0 10px;
+      text-shadow: 0 0 20px rgba(231, 84, 39, 0.5);
+    }
+
+    .real-header p {
+      font-size: 0.9em;
+      color: #a89080;
+      letter-spacing: 1px;
+      margin: 5px 0;
+    }
+
+    /* Section infos candidat */
+    .real-infos {
+      max-width: 1200px;
+      margin: 0 auto 30px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 15px;
+    }
+
+    .real-info-field {
+      background: rgba(20, 12, 8, 0.7);
+      border: 1px solid rgba(116, 98, 94, 0.4);
+      padding: 12px;
+      border-radius: 2px;
+    }
+
+    .real-info-field label {
+      display: block;
+      font-size: 0.75em;
+      color: #a89080;
+      margin-bottom: 4px;
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+
+    .real-info-field input {
+      width: 100%;
+      background: rgba(10, 5, 2, 0.8);
+      border: 1px solid rgba(231, 84, 39, 0.3);
+      color: #dacabe;
+      padding: 6px 8px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.85em;
+      box-sizing: border-box;
+    }
+
+    .real-info-field input:focus {
+      outline: none;
+      border-color: #e75427;
+      box-shadow: 0 0 10px rgba(231, 84, 39, 0.3);
+      background: rgba(15, 8, 5, 0.9);
+    }
+
+    /* Tableau scroll wrapper */
+    .table-wrapper {
+      max-width: 1400px;
+      margin: 0 auto;
+      overflow-x: auto;
+      border: 2px solid #e75427;
+      background: rgba(15, 8, 5, 0.5);
+    }
+
+    .real-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85em;
+    }
+
+    .real-table thead {
+      background: rgba(116, 98, 94, 0.2);
+      border-bottom: 2px solid #e75427;
+    }
+
+    .real-table th {
+      padding: 12px 8px;
+      text-align: left;
+      color: #e75427;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      border-right: 1px solid rgba(231, 84, 39, 0.2);
+      background: rgba(20, 12, 8, 0.6);
+      position: relative;
+      cursor: default;
+    }
+
+    .real-table th[data-desc]:hover {
+      color: #ffffff;
+    }
+
+    .tooltip {
+      position: absolute;
+      z-index: 1000;
+      pointer-events: none;
+      background: rgba(20, 12, 8, 0.92);
+      border: 1px solid rgba(231, 84, 39, 0.45);
+      color: #f3e1cf;
+      padding: 8px 10px;
+      border-radius: 3px;
+      font-size: 0.78em;
+      line-height: 1.3;
+      max-width: 320px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.45);
+      white-space: pre-wrap;
+      display: none;
+    }
+
+    .real-table th:last-child {
+      border-right: none;
+    }
+
+    .real-table tbody tr {
+      border-bottom: 1px solid rgba(116, 98, 94, 0.3);
+      transition: background 0.2s;
+    }
+
+    .real-table tbody tr:hover {
+      background: rgba(231, 84, 39, 0.08);
+    }
+
+    .real-table td {
+      padding: 10px 8px;
+      border-right: 1px solid rgba(116, 98, 94, 0.2);
+      min-width: 120px;
+    }
+
+    .real-table td:last-child {
+      border-right: none;
+    }
+
+    /* Cellule éditable */
+    .real-cell {
+      position: relative;
+    }
+
+    .real-cell-content {
+      background: rgba(10, 5, 2, 0.4);
+      padding: 6px;
+      border-radius: 2px;
+      cursor: text;
+      min-height: 40px;
+      display: flex;
+      align-items: center;
+      white-space: pre-wrap;
+      word-break: break-word;
+      border: 1px solid transparent;
+      transition: all 0.2s;
+    }
+
+    .real-cell-content:hover {
+      background: rgba(231, 84, 39, 0.1);
+      border-color: rgba(231, 84, 39, 0.3);
+    }
+
+    .real-cell-content.empty {
+      color: #6a6a5c;
+      font-style: italic;
+    }
+
+    /* Textarea en édition */
+    .real-cell-input {
+      width: 100%;
+      min-height: 100px;
+      background: rgba(10, 5, 2, 0.9);
+      border: 2px solid #e75427;
+      color: #dacabe;
+      padding: 8px;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 0.85em;
+      resize: vertical;
+      box-sizing: border-box;
+    }
+
+    .real-cell-input:focus {
+      outline: none;
+      box-shadow: 0 0 15px rgba(231, 84, 39, 0.4);
+    }
+
+    /* Colonne titre */
+    .real-cell-title {
+      background: rgba(116, 98, 94, 0.15);
+      font-weight: 600;
+      color: #e8b49a;
+      white-space: normal;
+    }
+
+    /* Colonne dates */
+    .real-cell-date {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.8em;
+      color: #a89080;
+    }
+
+    /* Compétences en colonnes */
+    .real-competence-col {
+      font-size: 0.8em;
+      line-height: 1.4;
+      color: #dacabe;
+    }
+
+    /* Spéciales sections */
+    .real-table section-title {
+      background: rgba(231, 84, 39, 0.15);
+      font-weight: 700;
+      color: #e75427;
+      letter-spacing: 1px;
+    }
+
+    /* Footer */
+    .real-footer {
+      max-width: 1200px;
+      margin: 40px auto 0;
+      padding: 20px 0;
+      border-top: 2px solid rgba(231, 84, 39, 0.3);
+      text-align: center;
+      font-size: 0.8em;
+      color: #a89080;
+    }
+
+    .real-footer a {
+      color: #e75427;
+      text-decoration: none;
+    }
+
+    .real-footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* Mode édition indicateur */
+    .edit-mode-hint {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: rgba(231, 84, 39, 0.2);
+      border: 1px solid #e75427;
+      color: #dacabe;
+      padding: 10px 15px;
+      font-size: 0.75em;
+      border-radius: 2px;
+      font-family: 'Share Tech Mono', monospace;
+      z-index: 100;
+      pointer-events: none;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .real-table {
+        font-size: 0.75em;
+      }
+
+      .real-table th,
+      .real-table td {
+        padding: 6px 4px;
+      }
+
+      .real-header h1 {
+        font-size: 1.4em;
+      }
+
+      .table-wrapper {
+        border-width: 1px;
+      }
+    }
+  </style>
+</head>
+<body class="realisations-container">
+
+  <div class="real-header">
+    <h1>SYNTHÈSE DES RÉALISATIONS</h1>
+    <p>BTS Services Informatiques aux Organisations — SESSION 2026 — Option SLAM</p>
+  </div>
+
+  <!-- Informations candidat -->
+  <div class="real-infos">
+    <div class="real-info-field">
+      <label>NOM et PRÉNOM</label>
+      <input type="text" value="Tom BENOIT" placeholder="Nom complet">
+    </div>
+    <div class="real-info-field">
+      <label>N° CANDIDAT</label>
+      <input type="text" placeholder="Numéro">
+    </div>
+    <div class="real-info-field">
+      <label>CENTRE DE FORMATION</label>
+      <input type="text" value="Lycée CARRIAT" placeholder="Centre">
+    </div>
+    <div class="real-info-field">
+      <label>URL DU PORTFOLIO</label>
+      <input type="text" placeholder="https://...">
+    </div>
+  </div>
+
+  <!-- Tableau des réalisations -->
+  <div class="table-wrapper">
+    <table class="real-table">
+      <thead>
+        <tr>
+          <th style="min-width: 220px;">Réalisations professionnelles<br><span style="font-size: 0.8em;">(intitulé et documents)</span></th>
+          <th style="min-width: 140px;">Période<br><span style="font-size: 0.8em;">JJ/MM/AA → JJ/MM/AA</span></th>
+          <th style="min-width: 130px;" data-desc="▸Recenser et identifier les ressources numériques\n▸Exploiter des référentiels, normes et standards\n▸Mettre en place et vérifier les niveaux d’habilitation\n▸Vérifier la continuité d’un service\n▸Gérer des sauvegardes\n▸Veiller aux règles d’utilisation">Gérer le patrimoine informatique</th>
+          <th style="min-width: 130px;" data-desc="▸Collecter, suivre et orienter des demandes\n▸Traiter des demandes réseau/système/applicatifs\n▸Traiter les demandes concernant les applications">Répondre aux incidents et demandes</th>
+          <th style="min-width: 130px;" data-desc="▸Valoriser l’image sur médias numériques dans le cadre juridique\n▸Référencer et mesurer la visibilité des services en ligne\n▸Participer à l’évolution d’un site web">Développer la présence en ligne</th>
+          <th style="min-width: 130px;" data-desc="▸Analyser objectifs et organisation de projet\n▸Planifier les activités\n▸Suivre indicateurs et analyser les écarts">Travailler en mode projet</th>
+          <th style="min-width: 130px;" data-desc="▸Tester intégration et acceptation d’un service\n▸Déployer un service\n▸Accompagner les utilisateurs">Mettre à disposition un service</th>
+          <th style="min-width: 130px;" data-desc="▸Installer environnement d’apprentissage personnel\n▸Utiliser outils et stratégies de veille\n▸Gérer identité professionnelle\n▸Développer projet professionnel">Organiser son développement professionnel</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Réalisations formation -->
+        <tr class="section-row">
+          <td colspan="8" class="real-cell-title" style="text-align: center; padding: 15px; font-size: 0.9em;">
+            RÉALISATIONS EN COURS DE FORMATION
+          </td>
+        </tr>
+        <tr>
+          <td class="real-cell real-cell-title">
+            <div class="real-cell-content empty" data-field="formation-1-title">Cliquez pour ajouter le titre</div>
+          </td>
+          <td class="real-cell real-cell-date">
+            <div class="real-cell-content empty" data-field="formation-1-date">--/--/-- → --/--/--</div>
+          </td>
+          <td class="real-cell"><div class="real-cell-content" data-field="formation-1-comp1"></div></td>
+          <td class="real-cell"><div class="real-cell-content" data-field="formation-1-comp2"></div></td>
+          <td class="real-cell"><div class="real-cell-content" data-field="formation-1-comp3"></div></td>
+          <td class="real-cell"><div class="real-cell-content" data-field="formation-1-comp4"></div></td>
+          <td class="real-cell"><div class="real-cell-content" data-field="formation-1-comp5"></div></td>
+          <td class="real-cell"><div class="real-cell-content" data-field="formation-1-comp6"></div></td>
+        </tr>
+
+        <!-- Réalisations stage année 1 -->
+        <tr class="section-row">
+          <td colspan="8" class="real-cell-title" style="text-align: center; padding: 15px; font-size: 0.9em;">
+            RÉALISATIONS EN MILIEU PROFESSIONNEL — 1ère ANNÉE
+          </td>
+        </tr>
+        <tr>
+          <td class="real-cell real-cell-title">
+            <div class="real-cell-content empty" data-field="stage1-1-title">Cliquez pour ajouter le titre</div>
+          </td>
+          <td class="real-cell real-cell-date">
+            <div class="real-cell-content empty" data-field="stage1-1-date">--/--/-- → --/--/--</div>
+          </td>
+          <td class="real-cell"><div class="real-cell-content" data-field="stage1-1-comp1"></div></td>
+          <td class="real-cell"><div class="real-cell-content" data-field="stage1-1-comp2"></div></td>
+          <td class="real-cell"><div class="real-cell-content" data-field="stage1-1-comp3"></div></td>
+          <td class="real-cell"><div class="real-cell-content" data-field="stage1-1-comp4"></div></td>
+          <td class="real-cell"><div class="real-cell-content" data-field="stage1-1-comp5"></div></td>
+          <td class="real-cell"><div class="real-cell-content" data-field="stage1-1-comp6"></div></td>
+        </tr>
+
+        <!-- Réalisations stage année 2 -->
+        <tr class="section-row">
+          <td colspan="8" class="real-cell-title" style="text-align: center; padding: 15px; font-size: 0.9em;">
+            RÉALISATIONS EN MILIEU PROFESSIONNEL — 2ème ANNÉE
+          </td>
+        </tr>
+        <tr>
+          <td class="real-cell real-cell-title">
+            <div class="real-cell-content empty" data-field="stage2-1-title">Cliquez pour ajouter le titre</div>
+          </td>
+          <td class="real-cell real-cell-date">
+            <div class="real-cell-content empty" data-field="stage2-1-date">--/--/-- → --/--/--</div>
+          </td>
+          <td class="real-cell"><div class="real-cell-content" data-field="stage2-1-comp1"></div></td>
+          <td class="real-cell"><div class="real-cell-content" data-field="stage2-1-comp2"></div></td>
+          <td class="real-cell"><div class="real-cell-content" data-field="stage2-1-comp3"></div></td>
+          <td class="real-cell"><div class="real-cell-content" data-field="stage2-1-comp4"></div></td>
+          <td class="real-cell"><div class="real-cell-content" data-field="stage2-1-comp5"></div></td>
+          <td class="real-cell"><div class="real-cell-content" data-field="stage2-1-comp6"></div></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div id="headerTooltip" class="tooltip" role="tooltip"></div>
+
+  <div class="real-footer">
+    <p>Cliquez sur n'importe quelle case pour éditer le contenu • Les données sont sauvegardées automatiquement</p>
+    <p><a href="index.html">← Retour au portfolio</a></p>
+  </div>
+
+  <div class="edit-mode-hint">MODE ÉDITION ACTIF ✓</div>
+
+  <script>
+    // Système de sauvegarde et édition des cellules
+    const STORAGE_KEY = 'realisations_data';
+
+    // Charger les données sauvegardées
+    function loadData() {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      return saved ? JSON.parse(saved) : {};
+    }
+
+    // Sauvegarder les données
+    function saveData(data) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    }
+
+    // Initialiser les cellules
+    function initCells() {
+      const data = loadData();
+      const cells = document.querySelectorAll('[data-field]');
+
+      cells.forEach(cell => {
+        const field = cell.getAttribute('data-field');
+        if (data[field]) {
+          cell.textContent = data[field];
+          cell.classList.remove('empty');
+        }
+
+        cell.addEventListener('click', () => editCell(cell, field));
+      });
+    }
+
+    // Éditer une cellule
+    function editCell(cell, field) {
+      const data = loadData();
+      const currentValue = data[field] || '';
+
+      // Créer textarea
+      const textarea = document.createElement('textarea');
+      textarea.className = 'real-cell-input';
+      textarea.value = currentValue;
+
+      cell.innerHTML = '';
+      cell.appendChild(textarea);
+      textarea.focus();
+      textarea.select();
+
+      function save() {
+        const value = textarea.value.trim();
+        data[field] = value;
+        saveData(data);
+
+        cell.textContent = value || '';
+        if (value) {
+          cell.classList.remove('empty');
+        } else {
+          cell.classList.add('empty');
+          cell.textContent = cell.parentElement.querySelector('[data-field]')?.getAttribute('data-original') || 'Cliquez pour ajouter';
+        }
+      }
+
+      textarea.addEventListener('blur', save);
+      textarea.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && e.ctrlKey) {
+          save();
+        }
+      });
+    }
+
+    function setupHeaderTooltips() {
+      const tooltip = document.getElementById('headerTooltip');
+      if (!tooltip) return;
+
+      document.querySelectorAll('.real-table th[data-desc]').forEach(th => {
+        th.addEventListener('mousemove', (event) => {
+          const text = th.getAttribute('data-desc');
+          if (!text) return;
+          tooltip.textContent = text;
+          tooltip.style.display = 'block';
+
+          const offset = 12;
+          const x = Math.min(event.pageX + offset, window.scrollX + window.innerWidth - tooltip.offsetWidth - 10);
+          const y = event.pageY + offset;
+          tooltip.style.left = x + 'px';
+          tooltip.style.top = y + 'px';
+        });
+
+        th.addEventListener('mouseleave', () => {
+          tooltip.style.display = 'none';
+        });
+
+        th.addEventListener('focus', () => {
+          tooltip.textContent = th.getAttribute('data-desc');
+          tooltip.style.display = 'block';
+        });
+
+        th.addEventListener('blur', () => {
+          tooltip.style.display = 'none';
+        });
+      });
+    }
+
+    // Init au chargement
+    document.addEventListener('DOMContentLoaded', () => {
+      initCells();
+      setupHeaderTooltips();
+    });
+  </script>
+
+</body>
+</html>

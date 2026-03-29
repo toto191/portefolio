@@ -100,6 +100,18 @@ window.addEventListener("keydown", (e) => {
 
 goTo(0);
 
+// Message quand projet non disponible
+const projectListItems = document.querySelectorAll('.Projets li');
+projectListItems.forEach((item, index) => {
+  const hasLink = item.querySelector('a');
+  if (!hasLink) {
+    item.style.cursor = 'pointer';
+    item.addEventListener('click', () => {
+      alert(`Aucun projet pour le moment (Projet ${index + 1})`);
+    });
+  }
+});
+
 const toggle = document.querySelector(".menu-toggle");
 const overlay = document.getElementById("navOverlay");
 const close = document.getElementById("navClose");

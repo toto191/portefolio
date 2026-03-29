@@ -158,8 +158,12 @@ nav a:hover {
 }
 nav a:hover::after { width: 100%; left: 0; }
 
-nav .cta::after { display: none; }
+nav .cta::after { display: none !important; }
 nav .cta:hover  { color: #0e0906; }
+
+.cta::before {
+  display: none !important; /* désactive l'animation de surcouche */
+}
 
 @keyframes gradientFlow {
   0%   { background-position: 0% 50%; }
@@ -178,7 +182,8 @@ nav .cta:hover  { color: #0e0906; }
   border: 1px solid var(--rf-orange);
   background: linear-gradient(135deg, rgba(231,84,39,0.15), rgba(231,84,39,0.05));
   margin-right: 10px;
-  animation: ctaGlow 3s ease-in-out infinite;
+  box-shadow: none !important;
+  animation: none !important;
   color: var(--rf-cream);
   font-family: 'Share Tech Mono', monospace;
   font-size: 0.72rem;
@@ -194,6 +199,7 @@ nav .cta:hover  { color: #0e0906; }
   content: '';
   position: absolute;
   inset: 0;
+  display: none; /* supprimé : un seul rectangle par bouton */
   background: linear-gradient(90deg, transparent 0%, rgba(231,84,39,0.12) 50%, transparent 100%);
   transform: translateX(-100%);
   animation: ctaScan 3s ease-in-out infinite 1.5s;
