@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Conduent - Stage</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body { background: radial-gradient(circle at top, #111 0%, #050302 100%); color: #cdc2a9; }
+    .stage-page { max-width: 960px; margin: 0 auto; padding: 4rem 5% 6rem; }
+    .stage-header { margin-bottom: 2.5rem; }
+    .stage-header h1 { font-family: 'Orbitron', monospace; font-size: 2rem; margin: 0; color: #f4e7c2; }
+    .stage-header p { font-size: 0.95rem; color: #b8a583; }
+    .stage-card { padding: 1.4rem 1.6rem; border: 1px solid rgba(231,84,39,.35); background: linear-gradient(135deg,#1f1107 0,#0f0704 100%); border-radius: 8px; margin-bottom: 1.5rem; }
+    .stage-card h2 { margin-top:0; font-size: 1.1rem; color: #f7e7cc; }
+    .stage-card p { font-size: 0.92rem; line-height:1.65; margin: .7rem 0; }
+    .toggle-btn { cursor:pointer; border:1px solid rgba(231,84,39,.6); background: rgba(20,10,6,.85); color: #f6e8ca; padding: 12px 18px; font-family:'Share Tech Mono', monospace; font-size: .88rem; border-radius: 4px; box-shadow:0 0 12px rgba(231,84,39,.2); }
+    .toggle-btn:hover { border-color:#e75427; }
+    .toggle-group { display:flex; gap:0.9rem; margin-bottom:1rem; flex-wrap:wrap; }
+    .stage-section { display: none; opacity: 0; transition: opacity .25s ease; }
+    .stage-section.active { display:block; opacity: 1; }
+    a.back-btn { text-decoration:none; margin-top:1.5rem; display:inline-block; color:#e7b777; }
+  </style>
+</head>
+<body>
+<header class="site-header" role="banner" style="background:transparent; position:static;">
+  <div class="container" style="display:flex; align-items:center; justify-content:space-between; padding:1rem 5%;">
+    <a href="index.html" class="brand" aria-label="Retour au portfolio" style="color:#f4e8ce; font-family:'Orbitron', monospace; letter-spacing:.1em; font-size:.9rem;">← Retour au Portfolio</a>
+    <a href="index.html#experience" class="brand" style="color:#f4e8ce; font-family:'Share Tech Mono', monospace;">#Expérience</a>
+  </div>
+</header>
+<main class="stage-page">
+  <section class="stage-header">
+    <h1>Conduent</h1>
+    <p>Stage de 6 semaines en 2026 - Optimisation UI / ACL / Support Client.</p>
+  </section>
+
+  <div class="toggle-group">
+    <button class="toggle-btn" id="btnCompany" data-target="company">L'entreprise</button>
+    <button class="toggle-btn" id="btnLearn" data-target="learn">Ce que j'ai appris</button>
+  </div>
+
+  <article class="stage-section active" id="company">
+    <div class="stage-card">
+      <h2>Présentation de Conduent</h2>
+      <p>Conduent est un leader de solutions de gestion des processus métiers, spécialisé dans les services numériques aux entreprises. Ils opèrent dans le secteur du support client, de l'automatisation, et de la transformation digitale, avec des solutions pour réduire le temps de traitement et améliorer l'expérience utilisateur.</p>
+   </div>
+  </article>
+
+  <article class="stage-section" id="learn">
+    <div class="stage-card">
+      <h2>Mon rapport de stage </h2>
+    <p><strong>Lien PDF :</strong> <a href="img/Rapport.pdf" target="_blank" rel="noopener" style="color:#f4d097; text-decoration:underline;">Rapport stage Conduent</a></p>
+   </div>
+  </article>
+
+  <a href="index.html#experience" class="back-btn">← Retour à la section Expérience du portfolio</a>
+</main>
+
+<script>
+  const sections = document.querySelectorAll('.stage-section');
+  const buttons = document.querySelectorAll('.toggle-btn');
+
+  function setActive(target) {
+    sections.forEach(sec => sec.classList.toggle('active', sec.id === target));
+    buttons.forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.target === target);
+      btn.textContent = btn.dataset.target === target ? (target === 'company' ? 'L\'entreprise' : 'Ce que j\'ai appris') : (btn.dataset.target === 'company' ? 'L\'entreprise' : 'Ce que j\'ai appris');
+    });
+  }
+
+  buttons.forEach(btn => btn.addEventListener('click', () => setActive(btn.dataset.target)));
+  setActive('company');
+</script>
+</body>
+</html>
