@@ -1,0 +1,1132 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CineSpote – Dossier Projet BTS</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #c9a84c;
+    --gold-light: #e8c97a;
+    --gold-dim: #7a6230;
+    --red: #c0392b;
+    --red-dark: #922b21;
+    --bg: #0a0a0a;
+    --bg2: #111111;
+    --bg3: #181818;
+    --bg4: #1e1e1e;
+    --text: #e8e0d0;
+    --text-dim: #888070;
+    --border: rgba(201,168,76,0.2);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* ── TOPBAR ── */
+  .topbar {
+    height: 4px;
+    background: linear-gradient(90deg, var(--gold-dim), var(--gold), var(--red), var(--gold), var(--gold-dim));
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  }
+
+  nav {
+    position: fixed; top: 4px; left: 0; right: 0; z-index: 99;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 3rem; height: 60px;
+    background: rgba(10,10,10,0.95);
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(10px);
+  }
+
+  .nav-logo {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600; font-size: 1.1rem;
+    letter-spacing: 0.25em;
+    color: var(--text);
+  }
+  .nav-logo span { color: var(--gold); }
+
+  .nav-links { display: flex; gap: 2.5rem; }
+  .nav-links a {
+    font-size: 0.65rem; font-weight: 500;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--text-dim); text-decoration: none;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    text-align: center;
+    padding: 8rem 2rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 40%, rgba(201,168,76,0.07) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 40% at 20% 80%, rgba(192,57,43,0.05) 0%, transparent 60%);
+  }
+
+  .hero-sub {
+    font-size: 0.65rem; font-weight: 500; letter-spacing: 0.35em;
+    text-transform: uppercase; color: var(--gold);
+    margin-bottom: 1.5rem;
+    animation: fadeUp 0.8s ease both;
+  }
+
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(4rem, 10vw, 9rem);
+    font-weight: 300; line-height: 0.9;
+    letter-spacing: 0.08em;
+    color: var(--text);
+    animation: fadeUp 0.8s 0.15s ease both;
+  }
+  .hero-title .dot { color: var(--gold); }
+
+  .hero-tagline {
+    margin-top: 2rem;
+    font-size: 0.75rem; font-weight: 400;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--text-dim);
+    animation: fadeUp 0.8s 0.3s ease both;
+  }
+
+  .hero-divider {
+    width: 60px; height: 1px;
+    background: var(--gold);
+    margin: 2rem auto;
+    animation: expandW 1s 0.5s ease both;
+  }
+
+  .hero-desc {
+    max-width: 600px; margin: 0 auto;
+    font-size: 0.85rem; line-height: 1.9;
+    color: var(--text-dim);
+    animation: fadeUp 0.8s 0.45s ease both;
+  }
+
+  .hero-cta {
+    margin-top: 3rem;
+    display: flex; gap: 1rem; justify-content: center;
+    animation: fadeUp 0.8s 0.6s ease both;
+  }
+
+  .btn-gold {
+    padding: 0.75rem 2rem;
+    border: 1px solid var(--gold);
+    background: transparent;
+    color: var(--gold);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.65rem; font-weight: 600;
+    letter-spacing: 0.25em; text-transform: uppercase;
+    cursor: pointer; text-decoration: none;
+    transition: all 0.3s;
+  }
+  .btn-gold:hover { background: var(--gold); color: var(--bg); }
+
+  .btn-red {
+    padding: 0.75rem 2rem;
+    border: 1px solid var(--red);
+    background: var(--red);
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.65rem; font-weight: 600;
+    letter-spacing: 0.25em; text-transform: uppercase;
+    cursor: pointer; text-decoration: none;
+    transition: all 0.3s;
+  }
+  .btn-red:hover { background: var(--red-dark); border-color: var(--red-dark); }
+
+  /* ── SECTION BASE ── */
+  section { padding: 7rem 2rem; }
+
+  .section-label {
+    font-size: 0.6rem; font-weight: 600;
+    letter-spacing: 0.4em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1rem;
+    display: flex; align-items: center; gap: 1rem;
+  }
+  .section-label::before {
+    content: '';
+    display: block; width: 30px; height: 1px;
+    background: var(--red);
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    font-weight: 300; letter-spacing: 0.05em;
+    line-height: 1;
+    color: var(--text);
+    margin-bottom: 1rem;
+  }
+  .section-title .dot { color: var(--gold); }
+
+  .section-line {
+    width: 50px; height: 1px;
+    background: var(--gold-dim);
+    margin-bottom: 3rem;
+  }
+
+  /* ── CONTEXT ── */
+  .context { background: var(--bg2); }
+
+  .context-grid {
+    max-width: 1200px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 5rem; align-items: center;
+  }
+
+  .context-text p {
+    font-size: 0.88rem; line-height: 2;
+    color: var(--text-dim); margin-bottom: 1.5rem;
+  }
+  .context-text strong { color: var(--gold); font-weight: 500; }
+
+  .context-card {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    padding: 2.5rem;
+    position: relative;
+  }
+  .context-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0;
+    width: 3px; height: 100%;
+    background: linear-gradient(to bottom, var(--gold), var(--red));
+  }
+
+  .context-card-title {
+    font-size: 0.6rem; font-weight: 600;
+    letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--red); margin-bottom: 1.5rem;
+  }
+
+  .context-card ul {
+    list-style: none; display: flex; flex-direction: column; gap: 1rem;
+  }
+  .context-card li {
+    font-size: 0.82rem; line-height: 1.6;
+    color: var(--text-dim); padding-left: 1.2rem;
+    position: relative;
+  }
+  .context-card li::before {
+    content: '◆';
+    position: absolute; left: 0;
+    color: var(--gold); font-size: 0.5rem;
+    top: 0.35em;
+  }
+
+  /* ── FEATURES ── */
+  .features { background: var(--bg); }
+  .features-inner { max-width: 1200px; margin: 0 auto; }
+
+  .roles-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+
+  .role-card {
+    background: var(--bg2);
+    padding: 2.5rem;
+    transition: background 0.3s;
+  }
+  .role-card:hover { background: var(--bg3); }
+
+  .role-badge {
+    display: inline-block;
+    padding: 0.3rem 0.8rem;
+    border: 1px solid currentColor;
+    font-size: 0.6rem; font-weight: 600;
+    letter-spacing: 0.25em; text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+  .badge-visitor { color: var(--text-dim); border-color: var(--text-dim); }
+  .badge-user { color: var(--gold); border-color: var(--gold-dim); }
+  .badge-admin { color: var(--red); border-color: var(--red); }
+
+  .role-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem; font-weight: 300;
+    margin-bottom: 0.5rem; color: var(--text);
+  }
+
+  .role-desc {
+    font-size: 0.75rem; color: var(--text-dim);
+    line-height: 1.7; margin-bottom: 1.5rem;
+  }
+
+  .role-features { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; }
+  .role-features li {
+    font-size: 0.78rem; color: var(--text-dim);
+    display: flex; align-items: flex-start; gap: 0.7rem;
+    line-height: 1.5;
+  }
+  .role-features li .icon {
+    flex-shrink: 0; width: 16px; height: 16px;
+    margin-top: 1px;
+  }
+  .icon-check { color: var(--gold); }
+  .icon-plus { color: var(--red); }
+
+  /* ── DB SCHEMA ── */
+  .schema { background: var(--bg2); }
+  .schema-inner { max-width: 1200px; margin: 0 auto; }
+
+  .db-table-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .db-table {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    overflow: hidden;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+  .db-table:hover {
+    border-color: var(--gold-dim);
+    transform: translateY(-2px);
+  }
+
+  .db-table-header {
+    background: var(--bg4);
+    padding: 0.6rem 1rem;
+    display: flex; align-items: center; gap: 0.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .db-table-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+  }
+  .dot-gold { background: var(--gold); }
+  .dot-red { background: var(--red); }
+  .dot-grey { background: var(--text-dim); }
+
+  .db-table-name {
+    font-size: 0.65rem; font-weight: 600;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--text);
+  }
+
+  .db-table-fields {
+    padding: 0.5rem 0;
+    list-style: none;
+  }
+  .db-table-fields li {
+    padding: 0.3rem 1rem;
+    font-size: 0.72rem; color: var(--text-dim);
+    display: flex; justify-content: space-between;
+    gap: 1rem;
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+  }
+  .db-table-fields li:last-child { border-bottom: none; }
+  .field-type {
+    font-size: 0.63rem; color: var(--gold-dim);
+    font-style: italic;
+  }
+  .field-pk { color: var(--gold); }
+  .field-fk { color: var(--red); }
+
+  /* ── PAGES GALLERY ── */
+  .pages { background: var(--bg); }
+  .pages-inner { max-width: 1200px; margin: 0 auto; }
+
+  .pages-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .page-card {
+    border: 1px solid var(--border);
+    overflow: hidden;
+    background: var(--bg2);
+    transition: border-color 0.3s, transform 0.3s;
+    cursor: pointer;
+  }
+  .page-card:hover {
+    border-color: var(--gold-dim);
+    transform: translateY(-3px);
+  }
+
+  .page-mockup {
+    background: var(--bg3);
+    padding: 1.5rem;
+    min-height: 180px;
+    display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+  }
+
+  .mockup-topbar {
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--gold), var(--red));
+  }
+
+  .mockup-content {
+    width: 100%; font-size: 0.7rem;
+  }
+
+  .page-info { padding: 1.2rem; }
+  .page-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem; font-weight: 300;
+    color: var(--text); margin-bottom: 0.3rem;
+  }
+  .page-desc {
+    font-size: 0.72rem; color: var(--text-dim); line-height: 1.6;
+  }
+
+  /* ── TECH STACK ── */
+  .tech { background: var(--bg2); }
+  .tech-inner { max-width: 1200px; margin: 0 auto; }
+
+  .tech-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 1px; background: var(--border);
+    border: 1px solid var(--border);
+  }
+
+  .tech-item {
+    background: var(--bg3); padding: 2rem;
+    text-align: center;
+    transition: background 0.3s;
+  }
+  .tech-item:hover { background: var(--bg4); }
+
+  .tech-icon {
+    font-size: 2rem; margin-bottom: 0.8rem; display: block;
+  }
+  .tech-name {
+    font-size: 0.65rem; font-weight: 600;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 0.3rem;
+  }
+  .tech-role {
+    font-size: 0.7rem; color: var(--text-dim); line-height: 1.5;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--bg);
+    border-top: 1px solid var(--border);
+    padding: 3rem 2rem;
+    text-align: center;
+  }
+
+  .footer-logo {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600; font-size: 1.5rem;
+    letter-spacing: 0.3em; color: var(--text);
+    margin-bottom: 0.5rem;
+  }
+  .footer-logo span { color: var(--gold); }
+
+  .footer-sub {
+    font-size: 0.65rem; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--text-dim);
+  }
+
+  .footer-copy {
+    margin-top: 2rem;
+    font-size: 0.65rem; color: var(--text-dim);
+    letter-spacing: 0.1em;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes expandW {
+    from { width: 0; }
+    to   { width: 60px; }
+  }
+
+  .reveal {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  /* ── MOCKUP ELEMENTS ── */
+  .m-input {
+    background: rgba(0,0,0,0.4); border: 1px solid rgba(201,168,76,0.3);
+    border-radius: 2px; padding: 0.4rem 0.6rem;
+    color: var(--text-dim); font-size: 0.65rem;
+    width: 100%; margin-bottom: 0.5rem;
+    font-family: 'Montserrat', sans-serif;
+  }
+  .m-label { font-size: 0.55rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.25rem; display: block; }
+  .m-btn-red {
+    background: var(--red); border: none; color: white;
+    font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase;
+    padding: 0.5rem 1rem; width: 100%; cursor: default;
+    font-family: 'Montserrat', sans-serif;
+  }
+  .m-film-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0.4rem 0; border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .m-film-title { font-size: 0.7rem; color: var(--text); }
+  .m-film-note {
+    font-size: 0.6rem; padding: 0.15rem 0.4rem;
+    border: 1px solid var(--gold); color: var(--gold);
+  }
+  .m-badge { font-size: 0.55rem; padding: 0.1rem 0.35rem; border: 1px solid var(--text-dim); color: var(--text-dim); display: inline-block; margin-top: 0.2rem; }
+
+  .m-page-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem; font-weight: 300;
+    letter-spacing: 0.1em; color: var(--text);
+    text-align: center; margin-bottom: 0.8rem;
+  }
+  .m-page-title .dot { color: var(--gold); }
+  .m-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+  .m-tag {
+    font-size: 0.55rem; padding: 0.2rem 0.5rem;
+    border: 1px solid var(--red); color: var(--red); display: inline-block;
+  }
+  .m-stars { color: var(--gold); font-size: 0.9rem; }
+
+  .m-form-title {
+    font-size: 0.65rem; font-weight: 600; letter-spacing: 0.25em;
+    text-transform: uppercase; color: var(--text);
+    margin-bottom: 0.8rem;
+    padding-bottom: 0.5rem; border-bottom: 1px solid var(--border);
+  }
+  .m-toggle {
+    display: flex; gap: 0.3rem; margin-bottom: 0.5rem;
+  }
+  .m-toggle-btn {
+    font-size: 0.55rem; padding: 0.25rem 0.6rem;
+    border: 1px solid; cursor: default;
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: 0.1em;
+  }
+  .m-toggle-btn.active { background: var(--gold); border-color: var(--gold); color: var(--bg); }
+  .m-toggle-btn.inactive { border-color: var(--text-dim); color: var(--text-dim); }
+
+  @media (max-width: 900px) {
+    .context-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .roles-grid { grid-template-columns: 1fr; }
+    .pages-grid { grid-template-columns: 1fr 1fr; }
+    .tech-grid { grid-template-columns: repeat(2, 1fr); }
+    nav { padding: 0 1.5rem; }
+    .nav-links { gap: 1.5rem; }
+  }
+  @media (max-width: 600px) {
+    .pages-grid { grid-template-columns: 1fr; }
+    .tech-grid { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar"></div>
+
+<nav>
+  <div class="nav-logo">CINESPOTE<span>.</span></div>
+  <div class="nav-links">
+    <a href="#contexte">Contexte</a>
+    <a href="#fonctionnalites">Fonctionnalités</a>
+    <a href="#base-de-donnees">Base de données</a>
+    <a href="#interfaces">Interfaces</a>
+    <a href="#technique">Stack technique</a>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div>
+    <p class="hero-sub">Projet BTS SIO – 2026</p>
+    <h1 class="hero-title">CINESPOTE<span class="dot">.</span></h1>
+    <p class="hero-tagline">Selection Moovie — Répertoire de Films & Séries</p>
+    <div class="hero-divider"></div>
+    <p class="hero-desc">
+      Une plateforme web élégante permettant de répertorier films et séries, 
+      de les retrouver sur les services de streaming, et de partager des avis 
+      et notes avec la communauté.
+    </p>
+    <div class="hero-cta">
+      <a href="#contexte" class="btn-gold">Découvrir le projet</a>
+      <a href="#fonctionnalites" class="btn-red">Fonctionnalités</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── CONTEXTE ── -->
+<section class="context" id="contexte">
+  <div class="context-grid">
+    <div class="context-text reveal">
+      <p class="section-label">01 — Contexte</p>
+      <h2 class="section-title">Le Projet<span class="dot">.</span></h2>
+      <div class="section-line"></div>
+      <p>
+        L'entreprise <strong>CinéSpote</strong> a commandé la réalisation d'un site internet 
+        permettant de centraliser et répertorier l'intégralité des films et séries existants, 
+        en indiquant sur quelles plateformes de streaming les retrouver.
+      </p>
+      <p>
+        Chaque contenu dispose d'une <strong>note officielle</strong> et d'un commentaire 
+        rédigé par les experts de l'entreprise, à la manière d'AlloCiné, permettant 
+        d'orienter les utilisateurs dans leurs choix.
+      </p>
+      <p>
+        Le site propose également un <strong>espace utilisateur</strong> permettant à chaque 
+        membre de noter les œuvres qu'il a vues, créant ainsi une double notation 
+        — experts et communauté.
+      </p>
+    </div>
+    <div class="context-card reveal">
+      <p class="context-card-title">Objectifs clés</p>
+      <ul>
+        <li>Répertorier films et séries avec fiche détaillée (synopsis, genre, plateforme)</li>
+        <li>Système de notation double : rédacteurs CinéSpote + utilisateurs</li>
+        <li>Recherche multicritères (genre, plateforme, type de contenu)</li>
+        <li>Interface d'administration complète pour la gestion du catalogue</li>
+        <li>Trois niveaux d'accès : Visiteur, Utilisateur authentifié, Admin</li>
+        <li>Design raffiné à l'image d'une marque premium du cinéma</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ── FONCTIONNALITÉS ── -->
+<section class="features" id="fonctionnalites">
+  <div class="features-inner">
+    <div class="reveal">
+      <p class="section-label">02 — Fonctionnalités</p>
+      <h2 class="section-title">Niveaux d'accès<span class="dot">.</span></h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="roles-grid reveal">
+
+      <!-- Visiteur -->
+      <div class="role-card">
+        <span class="role-badge badge-visitor">Visiteur</span>
+        <h3 class="role-title">Accès public</h3>
+        <p class="role-desc">Navigation libre sans inscription. Accès en lecture seule au catalogue complet.</p>
+        <ul class="role-features">
+          <li>
+            <svg class="icon icon-check" viewBox="0 0 16 16" fill="none"><polyline points="2,8 6,12 14,4" stroke="currentColor" stroke-width="1.5"/></svg>
+            Recherche par barre de texte (titre)
+          </li>
+          <li>
+            <svg class="icon icon-check" viewBox="0 0 16 16" fill="none"><polyline points="2,8 6,12 14,4" stroke="currentColor" stroke-width="1.5"/></svg>
+            Filtre par genre de contenu
+          </li>
+          <li>
+            <svg class="icon icon-check" viewBox="0 0 16 16" fill="none"><polyline points="2,8 6,12 14,4" stroke="currentColor" stroke-width="1.5"/></svg>
+            Filtre par plateforme de streaming
+          </li>
+          <li>
+            <svg class="icon icon-check" viewBox="0 0 16 16" fill="none"><polyline points="2,8 6,12 14,4" stroke="currentColor" stroke-width="1.5"/></svg>
+            Filtre Film / Série
+          </li>
+          <li>
+            <svg class="icon icon-check" viewBox="0 0 16 16" fill="none"><polyline points="2,8 6,12 14,4" stroke="currentColor" stroke-width="1.5"/></svg>
+            Consultation des fiches détaillées
+          </li>
+          <li>
+            <svg class="icon icon-check" viewBox="0 0 16 16" fill="none"><polyline points="2,8 6,12 14,4" stroke="currentColor" stroke-width="1.5"/></svg>
+            Lecture des notes CinéSpote & utilisateurs
+          </li>
+          <li>
+            <svg class="icon icon-check" viewBox="0 0 16 16" fill="none"><polyline points="2,8 6,12 14,4" stroke="currentColor" stroke-width="1.5"/></svg>
+            Liste des plateformes disponibles
+          </li>
+        </ul>
+      </div>
+
+      <!-- Utilisateur -->
+      <div class="role-card">
+        <span class="role-badge badge-user">Utilisateur</span>
+        <h3 class="role-title">Membre</h3>
+        <p class="role-desc">Compte personnel pour participer à la vie de la communauté et noter les contenus vus.</p>
+        <ul class="role-features">
+          <li>
+            <svg class="icon icon-check" viewBox="0 0 16 16" fill="none"><polyline points="2,8 6,12 14,4" stroke="currentColor" stroke-width="1.5"/></svg>
+            Toutes les fonctionnalités visiteur
+          </li>
+          <li>
+            <svg class="icon icon-plus" viewBox="0 0 16 16" fill="none"><line x1="8" y1="2" x2="8" y2="14" stroke="currentColor" stroke-width="1.5"/><line x1="2" y1="8" x2="14" y2="8" stroke="currentColor" stroke-width="1.5"/></svg>
+            Création et gestion de compte
+          </li>
+          <li>
+            <svg class="icon icon-plus" viewBox="0 0 16 16" fill="none"><line x1="8" y1="2" x2="8" y2="14" stroke="currentColor" stroke-width="1.5"/><line x1="2" y1="8" x2="14" y2="8" stroke="currentColor" stroke-width="1.5"/></svg>
+            Attribuer une note (0-10) à un film/série
+          </li>
+          <li>
+            <svg class="icon icon-plus" viewBox="0 0 16 16" fill="none"><line x1="8" y1="2" x2="8" y2="14" stroke="currentColor" stroke-width="1.5"/><line x1="2" y1="8" x2="14" y2="8" stroke="currentColor" stroke-width="1.5"/></svg>
+            Déposer un commentaire utilisateur
+          </li>
+          <li>
+            <svg class="icon icon-plus" viewBox="0 0 16 16" fill="none"><line x1="8" y1="2" x2="8" y2="14" stroke="currentColor" stroke-width="1.5"/><line x1="2" y1="8" x2="14" y2="8" stroke="currentColor" stroke-width="1.5"/></svg>
+            Consultation du profil personnel
+          </li>
+          <li>
+            <svg class="icon icon-plus" viewBox="0 0 16 16" fill="none"><line x1="8" y1="2" x2="8" y2="14" stroke="currentColor" stroke-width="1.5"/><line x1="2" y1="8" x2="14" y2="8" stroke="currentColor" stroke-width="1.5"/></svg>
+            Historique des notations personnelles
+          </li>
+        </ul>
+      </div>
+
+      <!-- Admin -->
+      <div class="role-card">
+        <span class="role-badge badge-admin">Admin</span>
+        <h3 class="role-title">Rédacteur</h3>
+        <p class="role-desc">Contrôle total du catalogue. Rédaction des fiches officielles et gestion complète des médias.</p>
+        <ul class="role-features">
+          <li>
+            <svg class="icon icon-check" viewBox="0 0 16 16" fill="none"><polyline points="2,8 6,12 14,4" stroke="currentColor" stroke-width="1.5"/></svg>
+            Toutes les fonctionnalités membres
+          </li>
+          <li>
+            <svg class="icon icon-plus" viewBox="0 0 16 16" fill="none"><line x1="8" y1="2" x2="8" y2="14" stroke="currentColor" stroke-width="1.5"/><line x1="2" y1="8" x2="14" y2="8" stroke="currentColor" stroke-width="1.5"/></svg>
+            Ajouter un film ou une série au catalogue
+          </li>
+          <li>
+            <svg class="icon icon-plus" viewBox="0 0 16 16" fill="none"><line x1="8" y1="2" x2="8" y2="14" stroke="currentColor" stroke-width="1.5"/><line x1="2" y1="8" x2="14" y2="8" stroke="currentColor" stroke-width="1.5"/></svg>
+            Modifier les informations d'une fiche
+          </li>
+          <li>
+            <svg class="icon icon-plus" viewBox="0 0 16 16" fill="none"><line x1="8" y1="2" x2="8" y2="14" stroke="currentColor" stroke-width="1.5"/><line x1="2" y1="8" x2="14" y2="8" stroke="currentColor" stroke-width="1.5"/></svg>
+            Supprimer un contenu du catalogue
+          </li>
+          <li>
+            <svg class="icon icon-plus" viewBox="0 0 16 16" fill="none"><line x1="8" y1="2" x2="8" y2="14" stroke="currentColor" stroke-width="1.5"/><line x1="2" y1="8" x2="14" y2="8" stroke="currentColor" stroke-width="1.5"/></svg>
+            Rédiger synopsis et note officielle
+          </li>
+          <li>
+            <svg class="icon icon-plus" viewBox="0 0 16 16" fill="none"><line x1="8" y1="2" x2="8" y2="14" stroke="currentColor" stroke-width="1.5"/><line x1="2" y1="8" x2="14" y2="8" stroke="currentColor" stroke-width="1.5"/></svg>
+            Gérer les plateformes de diffusion
+          </li>
+          <li>
+            <svg class="icon icon-plus" viewBox="0 0 16 16" fill="none"><line x1="8" y1="2" x2="8" y2="14" stroke="currentColor" stroke-width="1.5"/><line x1="2" y1="8" x2="14" y2="8" stroke="currentColor" stroke-width="1.5"/></svg>
+            Bouton « Ajoutée Média » depuis la liste
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── BASE DE DONNÉES ── -->
+<section class="schema" id="base-de-donnees">
+  <div class="schema-inner">
+    <div class="reveal">
+      <p class="section-label">03 — Base de données</p>
+      <h2 class="section-title">Modèle de données<span class="dot">.</span></h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="db-table-grid reveal">
+
+      <div class="db-table">
+        <div class="db-table-header">
+          <div class="db-table-dot dot-gold"></div>
+          <span class="db-table-name">media</span>
+        </div>
+        <ul class="db-table-fields">
+          <li><span class="field-pk">id_media</span><span class="field-type">int PK</span></li>
+          <li><span>titre</span><span class="field-type">varchar(150)</span></li>
+          <li><span>date_de_storie</span><span class="field-type">date</span></li>
+          <li><span>synopsys</span><span class="field-type">varchar(1500)</span></li>
+          <li><span>noteAdmin</span><span class="field-type">decimal(3,1)</span></li>
+          <li><span>commentaireAdmin</span><span class="field-type">varchar(500)</span></li>
+          <li><span class="field-fk">id_type</span><span class="field-type">int FK</span></li>
+          <li><span class="field-fk">id_genre</span><span class="field-type">int FK</span></li>
+          <li><span>noteUser</span><span class="field-type">decimal(3,2)</span></li>
+        </ul>
+      </div>
+
+      <div class="db-table">
+        <div class="db-table-header">
+          <div class="db-table-dot dot-gold"></div>
+          <span class="db-table-name">utilisateur</span>
+        </div>
+        <ul class="db-table-fields">
+          <li><span class="field-pk">id_user</span><span class="field-type">int PK</span></li>
+          <li><span>nom</span><span class="field-type">varchar(150)</span></li>
+          <li><span>prenom</span><span class="field-type">varchar(150)</span></li>
+          <li><span>date_inscription</span><span class="field-type">date</span></li>
+          <li><span>mail</span><span class="field-type">varchar(200)</span></li>
+          <li><span class="field-fk">AspNetUsersId</span><span class="field-type">varchar FK</span></li>
+        </ul>
+      </div>
+
+      <div class="db-table">
+        <div class="db-table-header">
+          <div class="db-table-dot dot-red"></div>
+          <span class="db-table-name">noteuser</span>
+        </div>
+        <ul class="db-table-fields">
+          <li><span class="field-fk">id_user</span><span class="field-type">varchar FK</span></li>
+          <li><span class="field-fk">id_media</span><span class="field-type">int FK</span></li>
+          <li><span>note</span><span class="field-type">float(3,1)</span></li>
+          <li><span>date_notation</span><span class="field-type">datetime</span></li>
+        </ul>
+      </div>
+
+      <div class="db-table">
+        <div class="db-table-header">
+          <div class="db-table-dot dot-red"></div>
+          <span class="db-table-name">commentaireuser</span>
+        </div>
+        <ul class="db-table-fields">
+          <li><span class="field-pk">id_commentaire</span><span class="field-type">int PK</span></li>
+          <li><span>commentaire</span><span class="field-type">varchar(500)</span></li>
+          <li><span class="field-fk">id_media</span><span class="field-type">int FK</span></li>
+          <li><span class="field-fk">id_user</span><span class="field-type">int FK</span></li>
+        </ul>
+      </div>
+
+      <div class="db-table">
+        <div class="db-table-header">
+          <div class="db-table-dot dot-grey"></div>
+          <span class="db-table-name">genre</span>
+        </div>
+        <ul class="db-table-fields">
+          <li><span class="field-pk">id_genre</span><span class="field-type">int PK</span></li>
+          <li><span>genre</span><span class="field-type">varchar(25)</span></li>
+        </ul>
+      </div>
+
+      <div class="db-table">
+        <div class="db-table-header">
+          <div class="db-table-dot dot-grey"></div>
+          <span class="db-table-name">typemedia</span>
+        </div>
+        <ul class="db-table-fields">
+          <li><span class="field-pk">id_type</span><span class="field-type">int PK</span></li>
+          <li><span>norm_type</span><span class="field-type">varchar(25)</span></li>
+        </ul>
+      </div>
+
+      <div class="db-table">
+        <div class="db-table-header">
+          <div class="db-table-dot dot-grey"></div>
+          <span class="db-table-name">plateforme</span>
+        </div>
+        <ul class="db-table-fields">
+          <li><span class="field-pk">id_plateforme</span><span class="field-type">int PK</span></li>
+          <li><span>nom</span><span class="field-type">varchar(25)</span></li>
+        </ul>
+      </div>
+
+      <div class="db-table">
+        <div class="db-table-header">
+          <div class="db-table-dot dot-red"></div>
+          <span class="db-table-name">assomedia_plateforme</span>
+        </div>
+        <ul class="db-table-fields">
+          <li><span class="field-fk">id_media</span><span class="field-type">int FK</span></li>
+          <li><span class="field-fk">id_plateforme</span><span class="field-type">int FK</span></li>
+        </ul>
+      </div>
+
+      <div class="db-table">
+        <div class="db-table-header">
+          <div class="db-table-dot dot-gold"></div>
+          <span class="db-table-name">saison</span>
+        </div>
+        <ul class="db-table-fields">
+          <li><span class="field-pk">id_saison</span><span class="field-type">int PK</span></li>
+          <li><span>titre_saison</span><span class="field-type">varchar(150)</span></li>
+          <li><span>Numero_saison</span><span class="field-type">int</span></li>
+          <li><span>nbEpisodes</span><span class="field-type">int</span></li>
+          <li><span>synopsis</span><span class="field-type">varchar(1500)</span></li>
+          <li><span class="field-fk">id_media</span><span class="field-type">int FK</span></li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── INTERFACES ── -->
+<section class="pages" id="interfaces">
+  <div class="pages-inner">
+    <div class="reveal">
+      <p class="section-label">04 — Interfaces</p>
+      <h2 class="section-title">Pages principales<span class="dot">.</span></h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="pages-grid reveal">
+
+      <!-- Connexion -->
+      <div class="page-card">
+        <div class="page-mockup">
+          <div class="mockup-topbar"></div>
+          <div class="mockup-content">
+            <p style="text-align:center; font-family:'Cormorant Garamond',serif; font-size:1rem; color:var(--text); margin-bottom:0.8rem;">Connexion – CineSpote<span style="color:var(--gold)">.</span></p>
+            <p style="text-align:center; font-size:0.55rem; letter-spacing:0.15em; color:var(--text-dim); text-transform:uppercase; margin-bottom:0.8rem;">Identifiants requis</p>
+            <label class="m-label">Email</label>
+            <div class="m-input" style="color:var(--text-dim)">votre@email.com</div>
+            <label class="m-label">Mot de passe</label>
+            <div class="m-input" style="color:var(--text-dim)">••••••••</div>
+            <button class="m-btn-red">Se connecter</button>
+          </div>
+        </div>
+        <div class="page-info">
+          <p class="page-name">Connexion</p>
+          <p class="page-desc">Authentification email/mot de passe avec lien vers la création de compte.</p>
+        </div>
+      </div>
+
+      <!-- Liste Films -->
+      <div class="page-card">
+        <div class="page-mockup">
+          <div class="mockup-topbar"></div>
+          <div class="mockup-content">
+            <p style="font-family:'Cormorant Garamond',serif; font-size:1.2rem; color:var(--text); letter-spacing:0.1em; margin-bottom:0.5rem;">FILMS</p>
+            <div class="m-film-row">
+              <div>
+                <div class="m-film-title">Inception</div>
+                <span class="m-badge">Science-Fiction</span>
+              </div>
+              <span class="m-film-note">9.6/10</span>
+            </div>
+            <div class="m-film-row">
+              <div>
+                <div class="m-film-title">The Dark Knight</div>
+                <span class="m-badge">Action</span>
+              </div>
+              <span class="m-film-note">9.8/10</span>
+            </div>
+            <div class="m-film-row">
+              <div>
+                <div class="m-film-title">Gladiator</div>
+                <span class="m-badge">Guerre</span>
+              </div>
+              <span class="m-film-note">10/10</span>
+            </div>
+          </div>
+        </div>
+        <div class="page-info">
+          <p class="page-name">Catalogue Films</p>
+          <p class="page-desc">Liste filtrée par genre et triée par note. Bouton « Ajoutée Média » pour les admins.</p>
+        </div>
+      </div>
+
+      <!-- Fiche Film -->
+      <div class="page-card">
+        <div class="page-mockup">
+          <div class="mockup-topbar"></div>
+          <div class="mockup-content">
+            <p class="m-page-title">GLADIATOR<span class="dot">.</span></p>
+            <p style="font-size:0.65rem; color:var(--text-dim); font-style:italic; margin-bottom:0.6rem;">"Un général romain devient esclave."</p>
+            <div style="display:flex; gap:0.4rem; margin-bottom:0.6rem;">
+              <span class="m-tag">GUERRE</span>
+              <span class="m-tag">FILM</span>
+            </div>
+            <div style="display:flex; justify-content:space-between; font-size:0.65rem;">
+              <div>
+                <span style="color:var(--text-dim)">Note CinéSpote :</span>
+                <span style="color:var(--gold); font-family:'Cormorant Garamond',serif; font-size:1.1rem;"> 10/10</span>
+              </div>
+              <div>
+                <span style="color:var(--text-dim)">Utilisateurs :</span>
+                <span style="color:var(--gold); font-family:'Cormorant Garamond',serif; font-size:1.1rem;"> 9.99/10</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="page-info">
+          <p class="page-name">Fiche Détaillée</p>
+          <p class="page-desc">Synopsis, note officielle, note communauté, plateformes et formulaire de notation utilisateur.</p>
+        </div>
+      </div>
+
+      <!-- Ajout Média -->
+      <div class="page-card">
+        <div class="page-mockup">
+          <div class="mockup-topbar"></div>
+          <div class="mockup-content">
+            <p class="m-form-title">Ajouter un nouveau média</p>
+            <label class="m-label">Type de média</label>
+            <div class="m-toggle">
+              <button class="m-toggle-btn active">Film</button>
+              <button class="m-toggle-btn inactive">Série</button>
+            </div>
+            <div class="m-row">
+              <div>
+                <label class="m-label">Genre</label>
+                <div class="m-input"></div>
+              </div>
+              <div>
+                <label class="m-label">Date de sortie</label>
+                <div class="m-input">jj/mm/aaaa</div>
+              </div>
+            </div>
+            <label class="m-label">Titre</label>
+            <div class="m-input"></div>
+          </div>
+        </div>
+        <div class="page-info">
+          <p class="page-name">Ajout Média (Admin)</p>
+          <p class="page-desc">Formulaire complet de saisie : type, genre, titre, synopsis, note et commentaire admin.</p>
+        </div>
+      </div>
+
+      <!-- Modification -->
+      <div class="page-card">
+        <div class="page-mockup">
+          <div class="mockup-topbar"></div>
+          <div class="mockup-content">
+            <p class="m-form-title">Modifier le média</p>
+            <label class="m-label">Type de média</label>
+            <div class="m-toggle">
+              <button class="m-toggle-btn active">Film</button>
+              <button class="m-toggle-btn inactive">Série</button>
+            </div>
+            <div class="m-row">
+              <div>
+                <label class="m-label">Titre</label>
+                <div class="m-input"></div>
+              </div>
+              <div>
+                <label class="m-label">Date de sortie</label>
+                <div class="m-input"></div>
+              </div>
+            </div>
+            <label class="m-label">Note admin (0-10)</label>
+            <div class="m-input"></div>
+            <button class="m-btn-red" style="margin-top:0.3rem; background:transparent; border:1px solid var(--text-dim); color:var(--text)">Modifier le média</button>
+          </div>
+        </div>
+        <div class="page-info">
+          <p class="page-name">Modification (Admin)</p>
+          <p class="page-desc">Édition complète des informations d'un film ou d'une série existante.</p>
+        </div>
+      </div>
+
+      <!-- Menu navigation -->
+      <div class="page-card">
+        <div class="page-mockup">
+          <div class="mockup-topbar"></div>
+          <div class="mockup-content">
+            <p style="font-family:'Montserrat',sans-serif; font-size:0.9rem; font-weight:600; letter-spacing:0.2em; color:var(--gold); margin-bottom:0.2rem;">CINESPOTE</p>
+            <p style="font-size:0.6rem; color:var(--text-dim); margin-bottom:1rem;">Selection moovie</p>
+            <div style="display:flex; flex-direction:column; gap:0.7rem;">
+              <div style="display:flex; align-items:center; gap:0.5rem;">
+                <span style="color:var(--gold); font-size:0.5rem;">◆</span>
+                <span style="font-size:0.75rem; color:var(--text)">Film</span>
+              </div>
+              <div style="display:flex; align-items:center; gap:0.5rem;">
+                <span style="color:var(--gold); font-size:0.5rem;">◆</span>
+                <span style="font-size:0.75rem; color:var(--text)">Séries</span>
+              </div>
+              <div style="display:flex; align-items:center; gap:0.5rem;">
+                <span style="color:var(--gold); font-size:0.5rem;">◆</span>
+                <span style="font-size:0.75rem; color:var(--text)">Menu</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="page-info">
+          <p class="page-name">Navigation Latérale</p>
+          <p class="page-desc">Menu hamburger donnant accès aux sections Films, Séries et aux options du compte.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── STACK TECHNIQUE ── -->
+<section class="tech" id="technique">
+  <div class="tech-inner">
+    <div class="reveal">
+      <p class="section-label">05 — Stack technique</p>
+      <h2 class="section-title">Technologies<span class="dot">.</span></h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="tech-grid reveal">
+      <div class="tech-item">
+        <span class="tech-icon">⚙️</span>
+        <p class="tech-name">ASP.NET Core</p>
+        <p class="tech-role">Framework back-end C# — gestion des routes, contrôleurs et authentification ASP.NET Identity</p>
+      </div>
+      <div class="tech-item">
+        <span class="tech-icon">🗄️</span>
+        <p class="tech-name">MySQL</p>
+        <p class="tech-role">Base de données relationnelle — stockage du catalogue, utilisateurs, notes et commentaires</p>
+      </div>
+      <div class="tech-item">
+        <span class="tech-icon">🎨</span>
+        <p class="tech-name">HTML / CSS / JS</p>
+        <p class="tech-role">Front-end sur mesure — design premium noir et or, animations, filtres dynamiques</p>
+      </div>
+      <div class="tech-item">
+        <span class="tech-icon">🔒</span>
+        <p class="tech-name">ASP.NET Identity</p>
+        <p class="tech-role">Gestion des rôles (Visiteur, User, Admin) et sécurisation des accès par token</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <p class="footer-logo">CINESPOTE<span>.</span></p>
+  <p class="footer-sub">Selection Moovie</p>
+  <p class="footer-copy">© 2026 – Mon Projet SIO – BTS SIO</p>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+
+  // Nav active on scroll
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 80) current = s.id;
+    });
+    navLinks.forEach(a => {
+      a.style.color = a.getAttribute('href') === '#' + current ? 'var(--gold)' : '';
+    });
+  });
+</script>
+
+</body>
+</html>
