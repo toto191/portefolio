@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Le Festin Épicurien — Projet Web</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --cream:    #F5F0E8;
+      --warm:     #FAF7F2;
+      --gold:     #C8A96A;
+      --gold-lt:  #DFC49A;
+      --bordeaux: #6B1F2A;
+      --bord-lt:  #8B3040;
+      --charcoal: #2A2520;
+      --grey:     #8A8078;
+      --grey-lt:  #C4BDB4;
+      --line:     rgba(200,169,106,0.25);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--cream);
+      color: var(--charcoal);
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    /* grain */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 9999; opacity: 0.4;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.4rem 3rem;
+      background: rgba(250,247,242,0.93);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem; font-weight: 400; letter-spacing: 0.1em;
+      color: var(--charcoal);
+    }
+    .nav-logo span { color: var(--gold); }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--grey); text-decoration: none; transition: color .3s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+
+    /* ─── HERO ─── */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      justify-content: flex-end; align-items: flex-start;
+      padding: 8rem 6rem 5rem;
+      position: relative; overflow: hidden;
+      background: var(--charcoal);
+    }
+
+    /* diagonal gold accent */
+    .hero::before {
+      content: '';
+      position: absolute; top: 0; right: 0;
+      width: 45%; height: 100%;
+      background: linear-gradient(135deg, transparent 40%, rgba(200,169,106,0.07) 100%);
+      pointer-events: none;
+    }
+
+    /* vertical ornament line */
+    .hero-line {
+      position: absolute; top: 0; left: 5.5rem;
+      width: 1px; height: 100%;
+      background: linear-gradient(to bottom, transparent, var(--gold) 30%, var(--gold) 70%, transparent);
+      opacity: 0.3;
+    }
+
+    .hero-tag {
+      font-size: 0.68rem; letter-spacing: 0.35em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 2rem;
+      opacity: 0; animation: fadeUp .7s ease .2s forwards;
+      display: flex; align-items: center; gap: .75rem;
+    }
+    .hero-tag::before {
+      content: ''; display: block; width: 28px; height: 1px; background: var(--gold);
+    }
+
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3.5rem, 9vw, 8rem);
+      font-weight: 300; line-height: 1;
+      color: var(--cream);
+      margin-bottom: 1rem;
+      opacity: 0; animation: fadeUp .9s ease .35s forwards;
+    }
+    .hero-title em { font-style: italic; color: var(--gold-lt); display: block; }
+
+    .hero-desc {
+      max-width: 520px;
+      font-size: 0.9rem; line-height: 1.9;
+      color: rgba(245,240,232,0.55);
+      margin-bottom: 3rem;
+      opacity: 0; animation: fadeUp .9s ease .55s forwards;
+    }
+
+    .hero-badges {
+      display: flex; gap: .75rem; flex-wrap: wrap;
+      opacity: 0; animation: fadeUp .9s ease .7s forwards;
+    }
+    .badge {
+      font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase;
+      padding: .35rem .9rem;
+      border: 1px solid rgba(200,169,106,0.4);
+      color: var(--gold-lt);
+    }
+
+    .hero-scroll {
+      position: absolute; bottom: 2.5rem; right: 5rem;
+      font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase;
+      color: rgba(200,169,106,0.45);
+      writing-mode: vertical-rl;
+      display: flex; align-items: center; gap: .7rem;
+      opacity: 0; animation: fadeUp .9s ease 1s forwards;
+    }
+    .hero-scroll::after {
+      content: ''; display: block; width: 1px; height: 60px;
+      background: linear-gradient(to bottom, var(--gold), transparent);
+    }
+
+    /* ─── CONTEXT SECTION ─── */
+    .context-section {
+      background: var(--warm);
+      padding: 7rem 2rem;
+      border-bottom: 1px solid var(--line);
+    }
+    .two-col {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 2fr; gap: 6rem;
+      align-items: start;
+    }
+    .sticky-label { position: sticky; top: 7rem; }
+
+    .section-label {
+      font-size: 0.68rem; letter-spacing: 0.35em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 1rem;
+      display: flex; align-items: center; gap: .75rem;
+    }
+    .section-label::before {
+      content: ''; display: block; width: 28px; height: 1px; background: var(--gold);
+    }
+
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      font-weight: 300; line-height: 1.2;
+      color: var(--charcoal);
+    }
+    .section-title em { font-style: italic; color: var(--bordeaux); }
+
+    .context-text p {
+      font-size: 0.9rem; line-height: 1.95;
+      color: var(--grey); margin-bottom: 1.5rem;
+    }
+    .context-text p:last-child { margin-bottom: 0; }
+
+    /* ─── OBJECTIVES STRIP ─── */
+    .objectives {
+      background: var(--bordeaux);
+      padding: 4rem 2rem;
+    }
+    .objectives-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 0;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .obj-item {
+      padding: 2.5rem 2.5rem;
+      border-right: 1px solid rgba(255,255,255,0.1);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .obj-item:nth-child(2n) { border-right: none; }
+    .obj-item:nth-last-child(-n+2) { border-bottom: none; }
+
+    .obj-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.5rem; font-weight: 300;
+      color: rgba(200,169,106,0.25);
+      line-height: 1; margin-bottom: .75rem;
+    }
+    .obj-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem; font-weight: 400;
+      color: var(--cream); margin-bottom: .5rem;
+    }
+    .obj-desc {
+      font-size: 0.8rem; line-height: 1.8;
+      color: rgba(245,240,232,0.55);
+    }
+
+    /* ─── CRUD SECTION ─── */
+    .crud-section { padding: 7rem 2rem; background: var(--cream); }
+    .crud-inner { max-width: 1100px; margin: 0 auto; }
+
+    .crud-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
+      background: var(--line);
+      border: 1px solid var(--line);
+      margin-top: 3.5rem;
+    }
+
+    .crud-block {
+      background: var(--cream);
+      padding: 3rem 2.5rem;
+      position: relative; overflow: hidden;
+      transition: background .35s;
+    }
+    .crud-block:hover { background: var(--warm); }
+
+    .crud-block::before {
+      content: '';
+      position: absolute; top: 0; left: 0; bottom: 0; width: 3px;
+      background: linear-gradient(to bottom, var(--bordeaux), var(--gold));
+      transform: scaleY(0); transform-origin: top;
+      transition: transform .5s ease;
+    }
+    .crud-block:hover::before { transform: scaleY(1); }
+
+    .crud-letter {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3.5rem; font-weight: 300;
+      color: rgba(200,169,106,0.2);
+      line-height: 1; margin-bottom: .5rem;
+    }
+    .crud-action {
+      font-size: 0.68rem; letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 1.25rem;
+    }
+    .crud-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem; font-weight: 400;
+      color: var(--charcoal); margin-bottom: 1rem;
+    }
+    .crud-list {
+      list-style: none;
+    }
+    .crud-list li {
+      font-size: 0.85rem; line-height: 1.85; color: var(--grey);
+      padding-left: 1.1rem; position: relative; margin-bottom: .35rem;
+    }
+    .crud-list li::before {
+      content: '—'; position: absolute; left: 0;
+      color: var(--gold); font-size: .7rem;
+    }
+
+    /* ─── ADMIN SECTION ─── */
+    .admin-section {
+      padding: 7rem 2rem;
+      background: var(--charcoal);
+    }
+    .admin-inner { max-width: 1100px; margin: 0 auto; }
+    .admin-section .section-title { color: var(--cream); }
+    .admin-section .section-title em { color: var(--gold-lt); }
+
+    .admin-features {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 0;
+      border: 1px solid rgba(200,169,106,0.15);
+      margin-top: 3.5rem;
+    }
+    .admin-feat {
+      padding: 2.5rem 2rem;
+      border-right: 1px solid rgba(200,169,106,0.15);
+      transition: background .3s;
+    }
+    .admin-feat:last-child { border-right: none; }
+    .admin-feat:hover { background: rgba(200,169,106,0.04); }
+
+    .admin-feat-icon { font-size: 1.6rem; margin-bottom: 1.25rem; display: block; }
+    .admin-feat-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem; font-weight: 400;
+      color: var(--gold-lt); margin-bottom: .75rem;
+    }
+    .admin-feat-desc {
+      font-size: 0.82rem; line-height: 1.85;
+      color: rgba(245,240,232,0.5);
+    }
+
+    /* ─── MENUS SECTION ─── */
+    .menus-section { padding: 7rem 2rem; background: var(--warm); }
+    .menus-inner { max-width: 1100px; margin: 0 auto; }
+
+    .menus-row {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem;
+      align-items: center; margin-top: 3.5rem;
+    }
+
+    .menus-text p {
+      font-size: 0.88rem; line-height: 1.95; color: var(--grey); margin-bottom: 1.25rem;
+    }
+
+    .menus-visual {
+      border: 1px solid var(--line);
+      background: var(--cream);
+      padding: 2.5rem;
+    }
+    .menu-card-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.75rem; letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 1.5rem;
+      display: flex; align-items: center; gap: .75rem;
+    }
+    .menu-card-title::after { content: ''; flex: 1; height: 1px; background: var(--line); }
+
+    .menu-item {
+      display: flex; justify-content: space-between; align-items: baseline;
+      padding: .9rem 0; border-bottom: 1px solid var(--line);
+    }
+    .menu-item:last-child { border-bottom: none; }
+    .menu-item-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem; font-weight: 400; color: var(--charcoal);
+    }
+    .menu-item-dots {
+      flex: 1; border-bottom: 1px dotted var(--grey-lt); margin: 0 .75rem; margin-bottom: .2rem;
+    }
+    .menu-item-price { font-size: 0.82rem; color: var(--bordeaux); letter-spacing: .05em; }
+
+    /* ─── TECH SECTION ─── */
+    .tech-section { padding: 7rem 2rem; background: var(--cream); }
+    .tech-inner { max-width: 1100px; margin: 0 auto; }
+
+    .tech-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 1px; background: var(--line);
+      border: 1px solid var(--line);
+      margin-top: 3.5rem;
+    }
+    .tech-item {
+      background: var(--cream);
+      padding: 2.5rem 1.5rem; text-align: center;
+      transition: background .3s;
+    }
+    .tech-item:hover { background: var(--warm); }
+    .tech-icon { font-size: 1.8rem; display: block; margin-bottom: .9rem; }
+    .tech-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem; font-weight: 400; color: var(--charcoal);
+    }
+    .tech-role {
+      font-size: 0.65rem; letter-spacing: .2em; text-transform: uppercase;
+      color: var(--grey); margin-top: .3rem;
+    }
+
+    /* ─── ORNAMENTAL HR ─── */
+    .ornament-hr {
+      display: flex; align-items: center; gap: 1.5rem;
+      margin: 4rem 0;
+    }
+    .ornament-hr span { flex: 1; height: 1px; background: var(--line); }
+    .ornament-hr em {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic; font-size: 1.1rem; color: var(--gold);
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--charcoal);
+      padding: 4rem 2rem; text-align: center;
+      border-top: 1px solid rgba(200,169,106,0.15);
+    }
+    .footer-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem; font-weight: 300;
+      color: var(--cream); margin-bottom: .6rem;
+    }
+    .footer-logo em { font-style: italic; color: var(--gold-lt); }
+    .footer-sub {
+      font-size: 0.68rem; letter-spacing: .25em; text-transform: uppercase;
+      color: rgba(200,169,106,0.4);
+    }
+
+    /* ─── ANIMATIONS ─── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity .8s ease, transform .8s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 900px) {
+      .hero { padding: 8rem 2rem 4rem; }
+      .hero-line { left: 1.5rem; }
+      .two-col { grid-template-columns: 1fr; gap: 3rem; }
+      .sticky-label { position: static; }
+      .objectives-inner { grid-template-columns: 1fr; }
+      .obj-item { border-right: none; }
+      .crud-grid { grid-template-columns: 1fr; }
+      .admin-features { grid-template-columns: 1fr; }
+      .admin-feat { border-right: none; border-bottom: 1px solid rgba(200,169,106,0.15); }
+      .menus-row { grid-template-columns: 1fr; }
+      .tech-grid { grid-template-columns: repeat(2, 1fr); }
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { gap: 1.5rem; }
+    }
+    @media (max-width: 540px) {
+      .nav-links { display: none; }
+      .tech-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Le Festin <span>·</span> Épicurien</div>
+  <ul class="nav-links">
+    <li><a href="#contexte">Contexte</a></li>
+    <li><a href="#reservations">Réservations</a></li>
+    <li><a href="#administration">Administration</a></li>
+    <li><a href="#technologies">Technologies</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-line"></div>
+
+  <p class="hero-tag">Projet Web · Cuisine française moderne</p>
+
+  <h1 class="hero-title">
+    Le Festin
+    <em>Épicurien</em>
+  </h1>
+
+  <p class="hero-desc">
+    Modernisation complète de la présence digitale d'un restaurant gastronomique reconnu pour son ambiance élégante. Site vitrine raffiné, réservation en ligne autonome et tableau de bord administrateur pour piloter le service au quotidien.
+  </p>
+
+  <div class="hero-badges">
+    <span class="badge">Site Vitrine</span>
+    <span class="badge">Réservation CRUD</span>
+    <span class="badge">Espace Admin</span>
+    <span class="badge">Gestion des Menus</span>
+    <span class="badge">Cuisine Française</span>
+  </div>
+
+  <div class="hero-scroll">Découvrir</div>
+</div>
+
+<!-- CONTEXTE -->
+<section id="contexte" class="context-section">
+  <div class="two-col">
+    <div class="sticky-label reveal">
+      <p class="section-label">Contexte</p>
+      <h2 class="section-title">La <em>genèse</em><br/>du projet</h2>
+    </div>
+    <div class="context-text reveal">
+      <p>
+        Le restaurant <strong>Le Festin Épicurien</strong> est un établissement de cuisine française moderne, reconnu dans sa région pour son ambiance élégante et sa cuisine raffinée. Son site web actuel, devenu obsolète, ne permettait aucune interaction avec les clients et ne reflétait plus le standing de l'établissement.
+      </p>
+      <p>
+        Le propriétaire souhaitait avant tout <strong>moderniser son image en ligne</strong> avec une vitrine à la hauteur de son positionnement gastronomique : présentation des menus, de l'équipe, des valeurs culinaires et des informations pratiques.
+      </p>
+      <p>
+        Son second objectif, plus fonctionnel, était de <strong>digitaliser entièrement la gestion des réservations</strong>. Les appels téléphoniques monopolisaient son personnel d'accueil, généraient des erreurs de saisie et rendaient difficile la visibilité sur le taux de remplissage. L'enjeu était d'offrir aux clients l'autonomie complète sur leurs réservations tout en dotant l'établissement d'un outil de pilotage fiable.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- OBJECTIVES -->
+<div class="objectives reveal">
+  <div class="objectives-inner">
+    <div class="obj-item">
+      <div class="obj-num">01</div>
+      <div class="obj-title">Image & Visibilité</div>
+      <div class="obj-desc">Refonte de la présence en ligne avec une vitrine moderne, sobre et élégante, alignée avec le positionnement gastronomique de l'établissement.</div>
+    </div>
+    <div class="obj-item">
+      <div class="obj-num">02</div>
+      <div class="obj-title">Réservation Autonome</div>
+      <div class="obj-desc">Permettre aux clients de créer, modifier et annuler leurs réservations en ligne, réduisant drastiquement les appels téléphoniques.</div>
+    </div>
+    <div class="obj-item">
+      <div class="obj-num">03</div>
+      <div class="obj-title">Pilotage du Service</div>
+      <div class="obj-desc">Offrir à l'équipe un tableau de bord clair pour gérer le flux des tables, visualiser les réservations et anticiper les besoins.</div>
+    </div>
+    <div class="obj-item">
+      <div class="obj-num">04</div>
+      <div class="obj-title">Menus Dynamiques</div>
+      <div class="obj-desc">Mise à jour en temps réel des plats, descriptions et tarifs affichés sur le site vitrine, sans intervention technique.</div>
+    </div>
+  </div>
+</div>
+
+<!-- RESERVATIONS CLIENT -->
+<section id="reservations" class="crud-section">
+  <div class="crud-inner">
+    <p class="section-label reveal">Fonctionnalités</p>
+    <h2 class="section-title reveal">Système de réservation<br/><em>client — CRUD complet</em></h2>
+    <p style="font-size:.88rem; color:var(--grey); line-height:1.9; max-width:680px; margin-top:1.5rem;" class="reveal">
+      Après authentification, le client dispose d'un espace personnel complet pour gérer l'intégralité de ses réservations de manière autonome, sans avoir à contacter l'établissement.
+    </p>
+
+    <div class="crud-grid reveal">
+
+      <div class="crud-block">
+        <div class="crud-letter">C</div>
+        <div class="crud-action">Créer · Create</div>
+        <div class="crud-title">Nouvelle réservation</div>
+        <ul class="crud-list">
+          <li>Sélection de la date souhaitée</li>
+          <li>Choix du créneau horaire disponible</li>
+          <li>Nombre de convives</li>
+          <li>Demandes spéciales ou allergies</li>
+          <li>Confirmation visuelle immédiate</li>
+        </ul>
+      </div>
+
+      <div class="crud-block">
+        <div class="crud-letter">R</div>
+        <div class="crud-action">Lire · Read</div>
+        <div class="crud-title">Espace personnel</div>
+        <ul class="crud-list">
+          <li>Liste des réservations à venir</li>
+          <li>Historique des réservations passées</li>
+          <li>Statut de chaque réservation</li>
+          <li>Détails complets : date, heure, couverts</li>
+          <li>Visibilité permanente sur son engagement</li>
+        </ul>
+      </div>
+
+      <div class="crud-block">
+        <div class="crud-letter">U</div>
+        <div class="crud-action">Modifier · Update</div>
+        <div class="crud-title">Ajustement de réservation</div>
+        <ul class="crud-list">
+          <li>Modification de la date ou de l'heure</li>
+          <li>Mise à jour du nombre de convives</li>
+          <li>Éditable jusqu'à la date limite fixée</li>
+          <li>Sans intervention du personnel</li>
+          <li>Mise à jour instantanée côté restaurant</li>
+        </ul>
+      </div>
+
+      <div class="crud-block">
+        <div class="crud-letter">D</div>
+        <div class="crud-action">Annuler · Delete</div>
+        <div class="crud-title">Annulation en ligne</div>
+        <ul class="crud-list">
+          <li>Annulation directe depuis l'espace client</li>
+          <li>Disponible avant la date de la réservation</li>
+          <li>Libération automatique du créneau</li>
+          <li>Notification envoyée au restaurant</li>
+          <li>Visibilité fiable du taux de remplissage</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ADMINISTRATION -->
+<section id="administration" class="admin-section">
+  <div class="admin-inner">
+    <p class="section-label reveal" style="color:var(--gold);">Espace Administration</p>
+    <h2 class="section-title reveal">Tableau de bord<br/><em>propriétaire</em></h2>
+
+    <div class="admin-features reveal">
+
+      <div class="admin-feat">
+        <span class="admin-feat-icon">📋</span>
+        <div class="admin-feat-title">Vue d'ensemble journalière</div>
+        <div class="admin-feat-desc">
+          Visualisation de toutes les réservations du jour et des jours à venir. Filtrage par statut, heure ou nombre de couverts. Anticipation du service en un coup d'œil.
+        </div>
+      </div>
+
+      <div class="admin-feat">
+        <span class="admin-feat-icon">✏️</span>
+        <div class="admin-feat-title">Gestion complète des réservations</div>
+        <div class="admin-feat-desc">
+          Ajout manuel d'une réservation pour un client téléphonique. Modification des détails, attribution d'une table, correction d'un nom ou d'une heure. Suppression définitive si nécessaire.
+        </div>
+      </div>
+
+      <div class="admin-feat">
+        <span class="admin-feat-icon">🍽️</span>
+        <div class="admin-feat-title">Gestion des menus</div>
+        <div class="admin-feat-desc">
+          CRUD complet sur les plats proposés : création de nouvelles entrées, modification des descriptions et des tarifs, suppression de plats saisonniers. Mise à jour du site vitrine en temps réel.
+        </div>
+      </div>
+
+    </div>
+
+    <div class="ornament-hr reveal">
+      <span></span>
+      <em>Contrôle total · Visibilité permanente</em>
+      <span></span>
+    </div>
+
+    <div class="admin-features reveal" style="border-top: none;">
+      <div class="admin-feat">
+        <span class="admin-feat-icon">🔍</span>
+        <div class="admin-feat-title">Filtres avancés</div>
+        <div class="admin-feat-desc">Filtrage des réservations par date, statut (confirmée, annulée, en attente), nombre de couverts ou heure de service pour une organisation optimale.</div>
+      </div>
+      <div class="admin-feat">
+        <span class="admin-feat-icon">🔐</span>
+        <div class="admin-feat-title">Accès sécurisé</div>
+        <div class="admin-feat-desc">Tableau de bord accessible uniquement après authentification. Séparation stricte des rôles entre client et administrateur.</div>
+      </div>
+      <div class="admin-feat">
+        <span class="admin-feat-icon">📊</span>
+        <div class="admin-feat-title">Indicateurs d'activité</div>
+        <div class="admin-feat-desc">Vue synthétique des taux d'occupation, des annulations et des créneaux les plus demandés pour mieux piloter l'établissement.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MENUS -->
+<section class="menus-section">
+  <div class="menus-inner">
+    <p class="section-label reveal">Vitrine gastronomique</p>
+    <h2 class="section-title reveal">Les menus,<br/><em>vivants et éditables</em></h2>
+
+    <div class="menus-row reveal">
+      <div class="menus-text">
+        <p>
+          Le site vitrine présente les menus du restaurant de manière élégante et structurée. Chaque plat dispose d'un nom, d'une description et d'un tarif, affichés selon la charte graphique de l'établissement.
+        </p>
+        <p>
+          Depuis le tableau de bord administrateur, le propriétaire ou son équipe peuvent mettre à jour les cartes en temps réel : ajouter un plat du jour, retirer un plat saisonnier, modifier un prix. Aucune compétence technique n'est nécessaire.
+        </p>
+        <p>
+          Cette autonomie éditoriale est essentielle pour un restaurant dont les cartes changent régulièrement au gré des saisons et des arrivages.
+        </p>
+      </div>
+
+      <div class="menus-visual">
+        <div class="menu-card-title">Menu Dégustation</div>
+        <div class="menu-item">
+          <span class="menu-item-name">Velouté de châtaigne & truffe noire</span>
+          <span class="menu-item-dots"></span>
+          <span class="menu-item-price">18 €</span>
+        </div>
+        <div class="menu-item">
+          <span class="menu-item-name">Tartare de Saint-Jacques, yuzu</span>
+          <span class="menu-item-dots"></span>
+          <span class="menu-item-price">24 €</span>
+        </div>
+        <div class="menu-item">
+          <span class="menu-item-name">Filet de bœuf, jus au Bordeaux</span>
+          <span class="menu-item-dots"></span>
+          <span class="menu-item-price">38 €</span>
+        </div>
+        <div class="menu-item">
+          <span class="menu-item-name">Millefeuille vanille, caramel beurre salé</span>
+          <span class="menu-item-dots"></span>
+          <span class="menu-item-price">14 €</span>
+        </div>
+        <div style="margin-top:1.5rem; padding-top:1rem; border-top:1px solid var(--line); text-align:center;">
+          <span style="font-size:0.65rem; letter-spacing:.25em; text-transform:uppercase; color:var(--grey);">Carte mise à jour par l'administrateur</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TECHNOLOGIES -->
+<section id="technologies" class="tech-section">
+  <div class="tech-inner">
+    <p class="section-label reveal">Stack technique</p>
+    <h2 class="section-title reveal">Technologies <em>utilisées</em></h2>
+
+    <div class="tech-grid reveal">
+      <div class="tech-item">
+        <span class="tech-icon">⚛️</span>
+        <div class="tech-name">React</div>
+        <div class="tech-role">Interface utilisateur</div>
+      </div>
+      <div class="tech-item">
+        <span class="tech-icon">🐘</span>
+        <div class="tech-name">PHP</div>
+        <div class="tech-role">API Back-end</div>
+      </div>
+      <div class="tech-item">
+        <span class="tech-icon">🗄️</span>
+        <div class="tech-name">MySQL</div>
+        <div class="tech-role">Base de données</div>
+      </div>
+      <div class="tech-item">
+        <span class="tech-icon">🔐</span>
+        <div class="tech-name">Auth JWT</div>
+        <div class="tech-role">Sécurité & sessions</div>
+      </div>
+      <div class="tech-item">
+        <span class="tech-icon">📡</span>
+        <div class="tech-name">API REST</div>
+        <div class="tech-role">Communication</div>
+      </div>
+      <div class="tech-item">
+        <span class="tech-icon">📱</span>
+        <div class="tech-name">Responsive</div>
+        <div class="tech-role">Mobile first</div>
+      </div>
+      <div class="tech-item">
+        <span class="tech-icon">🎨</span>
+        <div class="tech-name">CSS / Tailwind</div>
+        <div class="tech-role">Design système</div>
+      </div>
+      <div class="tech-item">
+        <span class="tech-icon">🔄</span>
+        <div class="tech-name">CRUD complet</div>
+        <div class="tech-role">Toutes entités</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Le Festin <em>Épicurien</em></div>
+  <p class="footer-sub">Cuisine française · Projet de digitalisation · Réservation en ligne</p>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 70);
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -50px 0px' });
+  reveals.forEach(el => obs.observe(el));
+</script>
+
+</body>
+</html>
